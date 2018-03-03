@@ -1,20 +1,27 @@
 #pragma once
 #include "Neuron.h"
+#include <memory>
 
-class Layer {
-private:
-	friend class Neuron;
-	friend class BinNumNetwork;
-	int numOf;
-	Neuron ** neurons;
+namespace MFNeuralNetwork {
 
-	void input(int number);
-	int output();
-public:
-	Layer(int numNeurons, Layer * previousLayer = nullptr);
-	~Layer() { for (int i = 0; i < numOf; i++) delete neurons[i]; delete[] neurons; }
+	class Layer {
+	private:
+		friend class Neuron;
+		friend class BinNumNetwork;
+		friend class NeuralNetwork;
+		friend class NetworkLoader;
+		int _numOf;
+		Neuron * _neurons;
 
-	void respond();
-	void setError(int input);
-	void train();
-};
+		void input(float * value);
+		int output();
+		std::shared_ptr<float[]> outputSet();
+	public:
+		Layer(int numNeurons, Layer * previousLayer = nullptr);
+		~Layer() { delete[] _neurons; }
+
+		void respond();
+		void setErrors(float* desiredResults);
+		void train(float learningRate);
+	};
+}

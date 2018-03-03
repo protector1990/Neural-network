@@ -1,7 +1,10 @@
 #pragma once
 #include "Neuron.h"
 
-class Perceptron : public Neuron {
-public:
-	int prop() const;
-};
+namespace MFNeuralNetwork {
+
+	class Perceptron : public Neuron {
+	public:
+		int prop() const;
+	};
+}

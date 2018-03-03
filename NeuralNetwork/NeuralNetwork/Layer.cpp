@@ -1,50 +1,64 @@
 #include "Layer.h"
 #include "Neuron.h"
+#include <stdlib.h>
+#include <new>
 
-Layer::Layer(int numNeurons, Layer * previousLayer) : numOf(numNeurons)
-{
-	neurons = new Neuron*[numNeurons];
-	for (int i = 0; i < numNeurons; i++) {
-		neurons[i] = new Neuron(previousLayer);
-	}
-}
+using namespace std;
 
-void Layer::respond()
-{
-	for (int i = 0; i < numOf; i++)
-		neurons[i]->respond();
-}
+namespace MFNeuralNetwork {
 
-void Layer::setError(int input)
-{
-	for (int i = 0; i < numOf; i++)
-		neurons[i]->setError(i == input ? +1.0 : -1.0);
-}
-
-void Layer::train()
-{
-	for (int i = 0; i < numOf; i++)
-		neurons[i]->train();
-}
-
-void Layer::input(int number)
-{
-	for (int i = numOf - 1; i >= 0; i--) {
-		neurons[i]->output = number % 2;
-		number /= 2;
-	}
-}
-
-int Layer::output()
-{
-	int ans = 0;
-	float best = -1.1;
-	for (int i = numOf - 1; i >= 0; i--) {
-		if (neurons[i]->output > best) {
-			best = neurons[i]->output;
-			ans = i;
+	Layer::Layer(int numNeurons, Layer * previousLayer) : _numOf(numNeurons)
+	{
+		_neurons = (Neuron*)malloc(numNeurons * sizeof(Neuron));
+		for (int i = 0; i < numNeurons; i++) {
+			new (_neurons + i) Neuron(previousLayer);
 		}
 	}
 
-	return ans;
+	void Layer::respond()
+	{
+		for (int i = 0; i < _numOf; i++)
+			_neurons[i].respond();
+	}
+
+	void Layer::setErrors(float* desiredResults)
+	{
+		for (int i = 0; i < _numOf; i++)
+			_neurons[i].setError(desiredResults[i]);
+	}
+
+	void Layer::train(float learningRate)
+	{
+		for (int i = 0; i < _numOf; i++)
+			_neurons[i].train(learningRate);
+	}
+
+	void Layer::input(float * value)
+	{
+		for (int i = _numOf - 1; i >= 0; i--) {
+			_neurons[i]._output = value[i];
+		}
+	}
+
+	int Layer::output()
+	{
+		int ans = 0;
+		float best = -1000000.f;
+		for (int i = _numOf - 1; i >= 0; i--) {
+			if (_neurons[i]._output > best) {
+				best = _neurons[i]._output;
+				ans = i;
+			}
+		}
+
+		return ans;
+	}
+	shared_ptr<float[]> Layer::outputSet()
+	{
+		float* ret = new float[_numOf];
+		for (size_t i = 0; i < _numOf; ++i) {
+			ret[i] = _neurons[i]._output;
+		}
+		return shared_ptr<float[]>(ret);
+	}
 }

@@ -1,21 +1,26 @@
 #pragma once
 
-const float LEARNING_RATE = 0.015;//define as needed
+namespace MFNeuralNetwork {
 
-class Neuron {
-	friend class Layer;
-	int numPrev;
-	Neuron ** previous;
-	float * weights;
-	float output;
+	const float LEARNING_RATE = 0.02;//define as needed
 
-	float error;
+	class Neuron {
+		friend class Layer;
+		friend class NetworkLoader;
+		int _numPrev;
+		Neuron * _previous;
+		float * _weights;
+		float _bias;
+		float _output;
 
-	void train();
-public:
-	Neuron(Layer * prevLayer = nullptr);
-	~Neuron() { delete[] previous; delete[] weights; }
+		float _error;
 
-	void respond();
-	void setError(float desiredOutcome);
-};
+		void train(float learningRate);
+	public:
+		Neuron(Layer * prevLayer = nullptr);
+		~Neuron() { delete[] _weights; }
+
+		virtual void respond();
+		void setError(float desiredOutcome);
+	};
+}
