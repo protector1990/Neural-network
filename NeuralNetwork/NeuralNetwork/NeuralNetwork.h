@@ -1,53 +1,10 @@
 #pragma once
 #include "Layer.h"
-#include <stdlib.h>
+#include <cstdlib>
 #include <mutex>
+#include "DataSet.h"
 
 namespace MFNeuralNetwork {
-
-	struct DataSet {
-	private:
-		size_t _numOfInputs;
-		size_t _numOfOutputs;
-		size_t _numOfDataPoints;
-		float* _inputs;
-		float* _expectedOutput;
-	public:
-		DataSet(size_t numOfDataPoints, size_t numOfInputs, size_t numOfOutputs) : 
-			_numOfDataPoints(numOfDataPoints),
-			_numOfInputs(numOfInputs),
-			_numOfOutputs(numOfOutputs)
-		{
-			_inputs = new float[numOfDataPoints * numOfInputs];
-			_expectedOutput = new float[numOfDataPoints * numOfOutputs]{};
-		}
-		~DataSet() {
-			delete[] _inputs;
-			delete[] _expectedOutput;
-		}
-		inline size_t getNumOfDataPoints() {
-			return _numOfDataPoints;
-		}
-		inline size_t getNumOfInputs() {
-			return _numOfInputs;
-		}
-		inline size_t getNumOfOutputs() {
-			return _numOfOutputs;
-		}
-		inline float* getInputDataPoint(size_t index) {
-			return _inputs + index * _numOfInputs;
-		}
-		inline float* getExptectedResult(size_t index) {
-			return _expectedOutput + index * _numOfOutputs;
-		}
-		inline void setInputDataPoint(float* value, size_t index) {
-			memcpy(_inputs + index * _numOfInputs, value, _numOfInputs);
-		}
-		inline void setExpectedResult(float* value, size_t index) {
-			memcpy(_expectedOutput + index * _numOfOutputs, value, _numOfOutputs);
-		}
-	};
-
 	//consider using chars instead of ints for inputs!
 
 	class NeuralNetwork {
@@ -64,14 +21,15 @@ namespace MFNeuralNetwork {
 	public:
 		
 		~NeuralNetwork() {
-			delete[] _layers;
+			delete _layers;
 			delete _lock;
 		}
 
 		inline Layer* getLayers();
 
-		virtual void train(DataSet& dataSet);
+		virtual void train(DataSet & dataSet, void (*progressCallback)(size_t) = nullptr);
 		virtual int output(float* input) const;
+		std::shared_ptr<float[]> getOutputs();
 
 		size_t getNumberOfInputs();
 		size_t getNumberOfOutputs();

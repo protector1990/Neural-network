@@ -13,6 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\programs">
+      <UniqueIdentifier>{d8326f5e-7715-494f-9e0f-506bdc525c34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DataSet">
+      <UniqueIdentifier>{22ac1eae-4d8e-4b05-ae80-fe437095193e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DataSet">
+      <UniqueIdentifier>{59619b5a-2b83-4c54-8c43-7377eec8a540}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Thread">
+      <UniqueIdentifier>{e0a42eda-d2dc-47a3-bb9a-50c7f4f8a9cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Thread">
+      <UniqueIdentifier>{a5744932-e2fb-478d-8584-467d60fbe685}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Neuron.h">
@@ -33,6 +48,27 @@
     <ClInclude Include="NetworkLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="programs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DataSet.h">
+      <Filter>Header Files\DataSet</Filter>
+    </ClInclude>
+    <ClInclude Include="PlainDataSet.h">
+      <Filter>Header Files\DataSet</Filter>
+    </ClInclude>
+    <ClInclude Include="PartitionedDataSet.h">
+      <Filter>Header Files\DataSet</Filter>
+    </ClInclude>
+    <ClInclude Include="MinstDataSet.h">
+      <Filter>Header Files\DataSet</Filter>
+    </ClInclude>
+    <ClInclude Include="WorkerThread.h">
+      <Filter>Header Files\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadDispatcher.h">
+      <Filter>Header Files\Thread</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Neuron.cpp">
@@ -49,6 +85,30 @@
     </ClCompile>
     <ClCompile Include="NetworkLoader.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="binaryNumber.cpp">
+      <Filter>Source Files\programs</Filter>
+    </ClCompile>
+    <ClCompile Include="minstNumbers.cpp">
+      <Filter>Source Files\programs</Filter>
+    </ClCompile>
+    <ClCompile Include="DataSet.cpp">
+      <Filter>Source Files\DataSet</Filter>
+    </ClCompile>
+    <ClCompile Include="PlainDataSet.cpp">
+      <Filter>Source Files\DataSet</Filter>
+    </ClCompile>
+    <ClCompile Include="PartitionedDataSet.cpp">
+      <Filter>Source Files\DataSet</Filter>
+    </ClCompile>
+    <ClCompile Include="MinstDataSet.cpp">
+      <Filter>Source Files\DataSet</Filter>
+    </ClCompile>
+    <ClCompile Include="WorkerThread.cpp">
+      <Filter>Source Files\Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadDispatcher.cpp">
+      <Filter>Source Files\Thread</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

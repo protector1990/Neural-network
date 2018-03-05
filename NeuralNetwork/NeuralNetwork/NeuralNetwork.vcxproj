@@ -82,7 +82,16 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\irrlicht\include</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>..\irrlicht\lib\Win64-visualStudio</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Irrlicht.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ProjectReference />
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -104,26 +113,49 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\irrlicht\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>Irrlicht.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <CustomBuildStep>
+      <Command>xcopy /y "..\irrlicht\bin\Win32-VisualStudio\*.dll" "$(OutDir)"</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>nonexisting_file.h</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DataSet.h" />
+    <ClInclude Include="ThreadDispatcher.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="BinNumNetwork.h" />
+    <ClInclude Include="MinstDataSet.h" />
     <ClInclude Include="NetworkLoader.h" />
     <ClInclude Include="NeuralNetwork.h" />
     <ClInclude Include="Neuron.h" />
+    <ClInclude Include="PartitionedDataSet.h" />
     <ClInclude Include="Perceptron.h" />
+    <ClInclude Include="PlainDataSet.h" />
+    <ClInclude Include="programs.h" />
+    <ClInclude Include="WorkerThread.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="binaryNumber.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="minstNumbers.cpp" />
     <ClCompile Include="NetworkLoader.cpp" />
     <ClCompile Include="NeuralNetwork.cpp" />
     <ClCompile Include="Neuron.cpp" />
+    <ClCompile Include="DataSet.cpp" />
+    <ClCompile Include="PlainDataSet.cpp" />
+    <ClCompile Include="PartitionedDataSet.cpp" />
+    <ClCompile Include="MinstDataSet.cpp" />
+    <ClCompile Include="ThreadDispatcher.cpp" />
+    <ClCompile Include="WorkerThread.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

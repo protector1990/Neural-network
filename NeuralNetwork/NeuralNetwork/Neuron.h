@@ -2,7 +2,7 @@
 
 namespace MFNeuralNetwork {
 
-	const float LEARNING_RATE = 0.02;//define as needed
+	const float LEARNING_RATE = 0.02f;//define as needed
 
 	class Neuron {
 		friend class Layer;

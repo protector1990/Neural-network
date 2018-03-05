@@ -5,7 +5,7 @@
 
 namespace MFNeuralNetwork {
 
-	void NeuralNetwork::train(DataSet& dataSet)
+	void NeuralNetwork::train(DataSet& dataSet, void(*progressCallback)(size_t))
 	{
 		Layer& outputLayer = _layers[_numOfLayers - 1];
 
@@ -18,6 +18,11 @@ namespace MFNeuralNetwork {
 			outputLayer.setErrors(dataSet.getExptectedResult(i));
 			for (size_t layerIndex = _numOfLayers - 1; layerIndex > 0; --layerIndex) {
 				_layers[layerIndex].train(_learningRate);
+			}
+			if (progressCallback) {
+				if (i % 100 == 0) {
+					progressCallback(i);
+				}
 			}
 		}
 	}
@@ -33,6 +38,10 @@ namespace MFNeuralNetwork {
 		int ret = _layers[_numOfLayers - 1].output();
 		_lock->unlock();
 		return ret;
+	}
+	std::shared_ptr<float[]> NeuralNetwork::getOutputs()
+	{
+		return _layers[_numOfLayers - 1].outputSet();
 	}
 	size_t NeuralNetwork::getNumberOfInputs()
 	{

@@ -18,7 +18,7 @@ namespace MFNeuralNetwork {
 		std::shared_ptr<float[]> outputSet();
 	public:
 		Layer(int numNeurons, Layer * previousLayer = nullptr);
-		~Layer() { delete[] _neurons; }
+		~Layer() { delete _neurons; }
 
 		void respond();
 		void setErrors(float* desiredResults);
