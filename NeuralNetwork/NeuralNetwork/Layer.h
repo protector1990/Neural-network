@@ -15,10 +15,10 @@ namespace MFNeuralNetwork {
 
 		void input(float * value);
 		int output();
-		std::shared_ptr<float[]> outputSet();
+		std::unique_ptr<float[]> outputSet();
 	public:
 		Layer(int numNeurons, Layer * previousLayer = nullptr);
-		~Layer() { delete _neurons; }
+		~Layer();
 
 		void respond();
 		void setErrors(float* desiredResults);

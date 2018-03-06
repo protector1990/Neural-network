@@ -44,11 +44,17 @@ ITexture* getTextureFromDataSet(IVideoDriver* driver, DataSet* dataSet, size_t i
 		newMemory[offset + 1] = val;
 		newMemory[offset + 2] = val;
 	}
-	IImage* image = driver->createImageFromData(ECF_R8G8B8, { 28, 28 }, imageMemory, true);
+	IImage* image = driver->createImageFromData(ECF_R8G8B8, { 28, 28 }, imageMemory, false);
 	path p;
-	p.append("imageFor");
-	p.append(index);
-	return driver->addTexture(p, image);
+	char path[256];
+	sprintf(path, "imageFor%i", index);
+	p.append(path);
+	
+
+	ITexture* tex = driver->addTexture(p, image);
+	delete image;
+	free(imageMemory);
+	return tex;
 }
 
 void neuralNetwork();
@@ -114,13 +120,22 @@ void testNetwork(NeuralNetwork* network, DataSet& dataSet) {
 		network->output(inputs);
 		auto result = network->getOutputs();
 		bool hit = true;
+		int expMaxInd = 0;
+		float expMax = -10000.f;
+		int maxInd = 0;
+		float mmax = -10000.f;
+		
 		for (int i = 0; i < 10; ++i) {
-			if (expectedResult[i] != result[i]) {
-				hit = false;
-				break;
+			if (expectedResult[i] > expMax) {
+				expMaxInd = i;
+				expMax = expectedResult[i];
+			}
+			if (result[i] > mmax) {
+				maxInd = i;
+				mmax = result[i];
 			}
 		}
-		if (hit) {
+		if (maxInd == expMaxInd) {
 			++hits;
 		}
 	}
@@ -130,6 +145,9 @@ void testNetwork(NeuralNetwork* network, DataSet& dataSet) {
 void irrUpdateProgress() {
 	if (currentIndex == prevIndex) return;
 	ITexture* image = getTextureFromDataSet(driver, &trainingSet, currentIndex);
+	ITexture* oldImage = currentImage->getImage();
+	currentImage->setImage(0);
+	driver->removeTexture(oldImage);
 	currentImage->setImage(image);
 	float* output = trainingSet.getExptectedResult(currentIndex);
 	size_t i = 0;
@@ -151,10 +169,12 @@ void progressCallback(size_t currentIndexProcessed) {
 
 void neuralNetwork() {
 	NetworkLoader loader;
-	NeuralNetwork* network = loader.newRandomNetwork(4, new size_t[4]{ trainingSet.getNumOfInputs(), 100, 50, 10 });
+	//NeuralNetwork* network = loader.newRandomNetwork(4, new size_t[4]{ trainingSet.getNumOfInputs(), 100, 50, 10 });
+	
+	NeuralNetwork* network = loader.loadNetwork("minstNetworkSmall.txt");
 	network->train(trainingSet, progressCallback);
 	testNetwork(network, testSet);
-	loader.saveNetwork(network, "minstNetwork.txt");
+	loader.saveNetwork(network, "minstNetworkSmall.txt");
 	delete network;
 }
 

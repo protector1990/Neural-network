@@ -9,10 +9,11 @@ namespace MFNeuralNetwork {
 
 	Layer::Layer(int numNeurons, Layer * previousLayer) : _numOf(numNeurons)
 	{
-		_neurons = (Neuron*)malloc(numNeurons * sizeof(Neuron));
-		for (int i = 0; i < numNeurons; i++) {
-			new (_neurons + i) Neuron(previousLayer);
-		}
+		_neurons = new Neuron[numNeurons]{ previousLayer };
+	}
+
+	Layer::~Layer() {
+		delete[] _neurons;
 	}
 
 	void Layer::respond()
@@ -53,12 +54,12 @@ namespace MFNeuralNetwork {
 
 		return ans;
 	}
-	shared_ptr<float[]> Layer::outputSet()
+	unique_ptr<float[]> Layer::outputSet()
 	{
 		float* ret = new float[_numOf];
 		for (size_t i = 0; i < _numOf; ++i) {
 			ret[i] = _neurons[i]._output;
 		}
-		return shared_ptr<float[]>(ret);
+		return unique_ptr<float[]>(ret);
 	}
 }

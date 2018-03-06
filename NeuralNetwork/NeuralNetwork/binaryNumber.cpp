@@ -8,14 +8,14 @@
 using namespace std;
 using namespace MFNeuralNetwork;
 
-shared_ptr<float[]> getInputForNumber(unsigned int number) {
+unique_ptr<float[]> getInputForNumber(unsigned int number) {
 	float* ret = new float[8];
 	unsigned int mask = 0b1;
 	for (int i = 7; i > -1; --i) {
 		ret[i] = mask & number;
 		number >>= 1;
 	}
-	return shared_ptr<float[]>(ret);
+	return unique_ptr<float[]>(ret);
 }
 
 void populateTrainingSet(PlainDataSet* set) {

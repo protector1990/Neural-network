@@ -16,12 +16,15 @@ namespace MFNeuralNetwork {
 		std::mutex* _lock;//for some reasons unattainable, mutex cannot be a member, since some strange errors occur then
 		NeuralNetwork(size_t numOfLayers) : _numOfLayers(numOfLayers) {
 			_lock = new std::mutex;
-			_layers = (Layer*)malloc(numOfLayers * sizeof(Layer));
+			_layers = (Layer*)malloc(numOfLayers * sizeof(Layer)); // consider std::aligned_storage
 		}
 	public:
 		
 		~NeuralNetwork() {
-			delete _layers;
+			for (size_t i = 0; i < _numOfLayers; ++i) {
+				_layers[i].~Layer();
+			}
+			free(_layers);
 			delete _lock;
 		}
 
@@ -29,7 +32,7 @@ namespace MFNeuralNetwork {
 
 		virtual void train(DataSet & dataSet, void (*progressCallback)(size_t) = nullptr);
 		virtual int output(float* input) const;
-		std::shared_ptr<float[]> getOutputs();
+		std::unique_ptr<float[]> getOutputs();
 
 		size_t getNumberOfInputs();
 		size_t getNumberOfOutputs();

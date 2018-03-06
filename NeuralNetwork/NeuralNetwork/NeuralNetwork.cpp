@@ -39,7 +39,7 @@ namespace MFNeuralNetwork {
 		_lock->unlock();
 		return ret;
 	}
-	std::shared_ptr<float[]> NeuralNetwork::getOutputs()
+	std::unique_ptr<float[]> NeuralNetwork::getOutputs()
 	{
 		return _layers[_numOfLayers - 1].outputSet();
 	}
