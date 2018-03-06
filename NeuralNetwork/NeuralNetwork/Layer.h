@@ -3,9 +3,8 @@
 #include <memory>
 
 namespace MFNeuralNetwork {
-
 	class Layer {
-	private:
+	protected:
 		friend class Neuron;
 		friend class BinNumNetwork;
 		friend class NeuralNetwork;
@@ -20,8 +19,8 @@ namespace MFNeuralNetwork {
 		Layer(int numNeurons, Layer * previousLayer = nullptr);
 		~Layer();
 
-		void respond();
+		virtual void respond();
 		void setErrors(float* desiredResults);
-		void train(float learningRate);
+		virtual void train(float learningRate);
 	};
 }

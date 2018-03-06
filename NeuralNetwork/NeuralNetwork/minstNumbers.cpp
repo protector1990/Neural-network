@@ -4,6 +4,7 @@
 #include "NetworkLoader.h"
 #include <iostream>
 #include <thread>
+#include <chrono>
 
 #include <irrlicht.h>
 using namespace irr;
@@ -108,6 +109,7 @@ void irrlichtMain() {
 		mgui->drawAll();
 		driver->endScene();
 		//std::cout << vec.X << ' ' << vec.Y << ' ' << vec.Z << std::endl;
+		std::this_thread::sleep_for(std::chrono::milliseconds(16));
 	}
 	
 }
@@ -171,9 +173,13 @@ void neuralNetwork() {
 	NetworkLoader loader;
 	//NeuralNetwork* network = loader.newRandomNetwork(4, new size_t[4]{ trainingSet.getNumOfInputs(), 100, 50, 10 });
 	
-	NeuralNetwork* network = loader.loadNetwork("minstNetworkSmall.txt");
+	NeuralNetwork* network = loader.loadNetwork("minstNetworkSmall.txt", "pmmp", new int[5]{ 1, 4, 2, 1 });
 	network->train(trainingSet, progressCallback);
+	std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
 	testNetwork(network, testSet);
+	std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
+	std::cout << "duration " << duration << '\n';
 	loader.saveNetwork(network, "minstNetworkSmall.txt");
 	delete network;
 }

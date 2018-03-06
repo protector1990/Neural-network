@@ -28,26 +28,14 @@
     <Filter Include="Source Files\Thread">
       <UniqueIdentifier>{a5744932-e2fb-478d-8584-467d60fbe685}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\NeuralNetwork">
+      <UniqueIdentifier>{7be7a952-fcbe-4f86-8320-adaf687ecee4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\NeuralNetwork">
+      <UniqueIdentifier>{50740804-5c59-47ef-9727-98bf2aee298e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Neuron.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Perceptron.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Layer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BinNumNetwork.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NeuralNetwork.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NetworkLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="programs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -69,21 +57,33 @@
     <ClInclude Include="ThreadDispatcher.h">
       <Filter>Header Files\Thread</Filter>
     </ClInclude>
+    <ClInclude Include="BinNumNetwork.h">
+      <Filter>Header Files\NeuralNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>Header Files\NeuralNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkLoader.h">
+      <Filter>Header Files\NeuralNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="NeuralNetwork.h">
+      <Filter>Header Files\NeuralNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="Neuron.h">
+      <Filter>Header Files\NeuralNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="Perceptron.h">
+      <Filter>Header Files\NeuralNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiThreadedLayer.h">
+      <Filter>Header Files\NeuralNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiThreadedLayer2.h">
+      <Filter>Header Files\NeuralNetwork</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Neuron.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Layer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NeuralNetwork.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NetworkLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="binaryNumber.cpp">
@@ -109,6 +109,24 @@
     </ClCompile>
     <ClCompile Include="ThreadDispatcher.cpp">
       <Filter>Source Files\Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>Source Files\NeuralNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkLoader.cpp">
+      <Filter>Source Files\NeuralNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="NeuralNetwork.cpp">
+      <Filter>Source Files\NeuralNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="Neuron.cpp">
+      <Filter>Source Files\NeuralNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiThreadedLayer.cpp">
+      <Filter>Source Files\NeuralNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiThreadedLayer2.cpp">
+      <Filter>Source Files\NeuralNetwork</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

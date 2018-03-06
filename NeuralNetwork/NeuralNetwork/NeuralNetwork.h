@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <mutex>
 #include "DataSet.h"
+#include <vector>
 
 namespace MFNeuralNetwork {
 	//consider using chars instead of ints for inputs!
@@ -10,25 +11,23 @@ namespace MFNeuralNetwork {
 	class NeuralNetwork {
 		friend class NetworkLoader;
 	private:
-		Layer * _layers;
+		std::vector<Layer*> _layers;
 		size_t _numOfLayers;
 		float _learningRate = LEARNING_RATE;
 		std::mutex* _lock;//for some reasons unattainable, mutex cannot be a member, since some strange errors occur then
 		NeuralNetwork(size_t numOfLayers) : _numOfLayers(numOfLayers) {
 			_lock = new std::mutex;
-			_layers = (Layer*)malloc(numOfLayers * sizeof(Layer)); // consider std::aligned_storage
 		}
 	public:
 		
 		~NeuralNetwork() {
 			for (size_t i = 0; i < _numOfLayers; ++i) {
-				_layers[i].~Layer();
+				delete _layers[i];
 			}
-			free(_layers);
 			delete _lock;
 		}
 
-		inline Layer* getLayers();
+		std::vector<Layer*> getLayers();
 
 		virtual void train(DataSet & dataSet, void (*progressCallback)(size_t) = nullptr);
 		virtual int output(float* input) const;
