@@ -15,8 +15,8 @@ namespace MFNeuralNetwork {
 
 		float _error;
 
-		void train(float learningRate);
 	public:
+		void train(float learningRate, int prevStartIndex, int prevEndIndex);
 		Neuron(Layer * prevLayer = nullptr);
 		~Neuron() { delete[] _weights; }
 

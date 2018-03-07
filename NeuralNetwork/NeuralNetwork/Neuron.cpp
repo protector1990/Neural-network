@@ -5,11 +5,11 @@
 
 namespace MFNeuralNetwork {
 
-	void Neuron::train(float learningRate)
+	void Neuron::train(float learningRate, int prevStartIndex, int prevEndIndex)
 	{
 		float delta = (1.f - _output) * (1.f + _output) * _error * learningRate;
 
-		for (int i = 0; i < _numPrev; i++) {
+		for (int i = prevStartIndex; i <= prevEndIndex; i++) {
 			_previous[i]._error += _weights[i] * _error;
 			_weights[i] += _previous[i]._output * delta;
 		}

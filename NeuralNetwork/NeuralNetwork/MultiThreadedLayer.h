@@ -22,23 +22,25 @@ namespace MFNeuralNetwork {
 		std::thread _thread{ &LayerWorkerThread::workerThreadMainLoop, this };
 		Neuron* _startNeuron;
 		Neuron* _endNeuron;
-		void run();
+		int _mode;
+		int _currentBackPropIndex;
+		void run(int mode);
+		void initBackPropagation(int currentIndex);
 	};
 
 	class MultiThreadedLayer : public Layer {
 		friend class NetworkLoader;
 		friend class LayerWorkerThread;
 	private:
+		int* _backPropStartNeuronIndexes;
+		int* _backPropEndNeuronIndexes;
 		int _threadsAtWork;
 		std::vector<LayerWorkerThread*> _threads;
 		std::mutex _m;
 		std::condition_variable _cv;
 		virtual void respond() override;
 
-		virtual void train(float learningRate) override
-		{
-			Layer::train(learningRate); //leave it at this for now
-		}
+		virtual void train(float learningRate) override;
 
 		void threadFinished();
 

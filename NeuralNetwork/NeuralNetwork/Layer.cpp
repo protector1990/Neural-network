@@ -7,7 +7,9 @@ using namespace std;
 
 namespace MFNeuralNetwork {
 
-	Layer::Layer(int numNeurons, Layer * previousLayer) : _numOf(numNeurons)
+	Layer::Layer(int numNeurons, Layer * previousLayer) : 
+		_numOf(numNeurons),
+		_prevLayer(previousLayer)
 	{
 		_neurons = new Neuron[numNeurons]{ previousLayer };
 	}
@@ -31,7 +33,7 @@ namespace MFNeuralNetwork {
 	void Layer::train(float learningRate)
 	{
 		for (int i = 0; i < _numOf; i++)
-			_neurons[i].train(learningRate);
+			_neurons[i].train(learningRate, 0, _prevLayer->_numOf);
 	}
 
 	void Layer::input(float * value)
