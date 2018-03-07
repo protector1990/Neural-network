@@ -78,9 +78,6 @@
     <ClInclude Include="MultiThreadedLayer.h">
       <Filter>Header Files\NeuralNetwork</Filter>
     </ClInclude>
-    <ClInclude Include="MultiThreadedLayer2.h">
-      <Filter>Header Files\NeuralNetwork</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -123,9 +120,6 @@
       <Filter>Source Files\NeuralNetwork</Filter>
     </ClCompile>
     <ClCompile Include="MultiThreadedLayer.cpp">
-      <Filter>Source Files\NeuralNetwork</Filter>
-    </ClCompile>
-    <ClCompile Include="MultiThreadedLayer2.cpp">
       <Filter>Source Files\NeuralNetwork</Filter>
     </ClCompile>
   </ItemGroup>

@@ -141,7 +141,6 @@
   <ItemGroup>
     <ClInclude Include="DataSet.h" />
     <ClInclude Include="MultiThreadedLayer.h" />
-    <ClInclude Include="MultiThreadedLayer2.h" />
     <ClInclude Include="ThreadDispatcher.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="BinNumNetwork.h" />
@@ -161,7 +160,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="minstNumbers.cpp" />
     <ClCompile Include="MultiThreadedLayer.cpp" />
-    <ClCompile Include="MultiThreadedLayer2.cpp" />
     <ClCompile Include="NetworkLoader.cpp" />
     <ClCompile Include="NeuralNetwork.cpp" />
     <ClCompile Include="Neuron.cpp" />

@@ -1,5 +1,6 @@
 #include "MultiThreadedLayer.h"
 #include <mutex>
+#include <iostream>
 
 using namespace std;
 
@@ -9,12 +10,11 @@ void MFNeuralNetwork::LayerWorkerThread::workerThreadMainLoop()
 		unique_lock<mutex> l(_m);
 		_cv.wait(l, [this]() {return _started; });
 		Neuron* currNeuron = _startNeuron;
-		int counter = 0;
 		do {
 			currNeuron->respond();
 			currNeuron++;
-			counter++;
 		} while (currNeuron != _endNeuron);
+		currNeuron->respond();
 		_started = false;
 		_layer->threadFinished();
 	}
@@ -43,6 +43,7 @@ void MFNeuralNetwork::MultiThreadedLayer::respond()
 		std::unique_lock<std::mutex> l(_m);
 		_cv.wait(l, [this]() {return _threadsAtWork == 0; });
 	}
+	int x = 5;
 }
 
 void MFNeuralNetwork::MultiThreadedLayer::threadFinished() {
@@ -53,7 +54,6 @@ void MFNeuralNetwork::MultiThreadedLayer::threadFinished() {
 	if (_threadsAtWork == 0) {
 		_cv.notify_one();
 	}
-
 }
 
 MFNeuralNetwork::MultiThreadedLayer::MultiThreadedLayer(int numNeurons, Layer * prevLayer, int numOfThreads) :

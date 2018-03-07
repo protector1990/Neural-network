@@ -2,7 +2,6 @@
 #include <fstream>
 #include <random>
 #include "MultiThreadedLayer.h"
-#include "MultiThreadedLayer2.h"
 
 using namespace std;
 
@@ -26,8 +25,8 @@ namespace MFNeuralNetwork {
 			else if (layerTypes != nullptr && layerTypes[layerIter] == 'm') {
 				currentLayer = new MultiThreadedLayer(numOfNeurons, prevLayer, numbersOfThreads[layerIter]);
 			}
-			else if (layerTypes != nullptr && layerTypes[layerIter] == 'M') {
-				currentLayer = new MultiThreadedLayer2(numOfNeurons, prevLayer, numbersOfThreads[layerIter]);
+			else {
+				throw exception("Unknown layer type");
 			}
 			ret->_layers.push_back(currentLayer);
 			Neuron* neurons = currentLayer->_neurons;
@@ -64,8 +63,8 @@ namespace MFNeuralNetwork {
 			else if (layerTypes != nullptr && layerTypes[layerIter] == 'm') {
 				currentLayer = new MultiThreadedLayer(numOfNeurons, prevLayer, numbersOfThreads[layerIter]);
 			}
-			else if (layerTypes != nullptr && layerTypes[layerIter] == 'M') {
-				currentLayer = new MultiThreadedLayer2(numOfNeurons, prevLayer, numbersOfThreads[layerIter]);
+			else {
+				throw exception("Unknown layer type");
 			}
 			ret->_layers.push_back(currentLayer);
 			Neuron* neurons = currentLayer->_neurons;
