@@ -18,7 +18,7 @@ namespace MFNeuralNetwork {
 		bool _started = false;
 		MultiThreadedLayer* _layer;
 		std::mutex _m;
-		std::condition_variable _cv;
+		std::condition_variable _threadCv;
 		std::thread _thread{ &LayerWorkerThread::workerThreadMainLoop, this };
 		Neuron* _startNeuron;
 		Neuron* _endNeuron;
@@ -37,7 +37,7 @@ namespace MFNeuralNetwork {
 		int _threadsAtWork;
 		std::vector<LayerWorkerThread*> _threads;
 		std::mutex _m;
-		std::condition_variable _cv;
+		std::condition_variable _layerCv;
 		virtual void respond() override;
 
 		virtual void train(float learningRate) override;

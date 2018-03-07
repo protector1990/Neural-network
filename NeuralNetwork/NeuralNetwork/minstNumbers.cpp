@@ -170,18 +170,23 @@ void progressCallback(size_t currentIndexProcessed) {
 }
 
 void neuralNetwork() {
-	NetworkLoader loader;
-	NeuralNetwork* network = loader.newRandomNetwork(4, new size_t[4]{ trainingSet.getNumOfInputs(), 1500, 1000, 10 }, "pmmp", new int[4]{ 1, 4, 4, 1 });
-	
-	//NeuralNetwork* network = loader.loadNetwork("minstNetworkSmall.txt", "pmmp", new int[5]{ 1, 4, 2, 1 });
-	network->train(trainingSet, progressCallback);
-	std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
-	testNetwork(network, testSet);
-	std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
-	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
-	std::cout << "duration " << duration << '\n';
-	loader.saveNetwork(network, "minstNetworkSmall.txt");
-	delete network;
+	try {
+		NetworkLoader loader;
+		NeuralNetwork* network = loader.newRandomNetwork(4, new size_t[4]{ trainingSet.getNumOfInputs(), 1500, 1000, 10 }, "pmmp", new int[4]{ 1, 4, 4, 1 });
+
+		//NeuralNetwork* network = loader.loadNetwork("minstNetworkSmall.txt", "pmmp", new int[5]{ 1, 4, 2, 1 });
+		network->train(trainingSet, progressCallback);
+		std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
+		testNetwork(network, testSet);
+		std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
+		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
+		std::cout << "duration " << duration << '\n';
+		loader.saveNetwork(network, "minstNetworkSmall.txt");
+		delete network;
+	}
+	catch (std::exception& e) {
+		std::cout << e.what() << std::endl;
+	}
 }
 
 void minstNumbersRecognitorMainLoop() {
