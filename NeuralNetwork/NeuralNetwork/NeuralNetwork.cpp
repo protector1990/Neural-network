@@ -5,7 +5,7 @@
 
 namespace MFNeuralNetwork {
 
-	void NeuralNetwork::train(DataSet& dataSet, void(*progressCallback)(size_t))
+	void NeuralNetwork::train(DataSet& dataSet, float learningRate, void(*progressCallback)(size_t))
 	{
 		Layer& outputLayer = *_layers[_numOfLayers - 1];
 

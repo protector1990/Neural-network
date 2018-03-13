@@ -5,7 +5,9 @@
 #include <vector>
 
 namespace MFNeuralNetwork {
+
 	struct LayerWorkerThread {
+		enum Mode {MOD_RESPOND, MOD_TRAIN};
 		friend class MultiThreadedLayer;
 	private:
 		void workerThreadMainLoop();
@@ -15,6 +17,7 @@ namespace MFNeuralNetwork {
 			_endNeuron(endNeuron)
 		{}
 	
+		float _learningRate = LEARNING_RATE;
 		bool _started = false;
 		MultiThreadedLayer* _layer;
 		std::mutex _m;
@@ -22,10 +25,10 @@ namespace MFNeuralNetwork {
 		std::thread _thread{ &LayerWorkerThread::workerThreadMainLoop, this };
 		Neuron* _startNeuron;
 		Neuron* _endNeuron;
-		int _mode;
+		Mode _mode;
 		int _currentBackPropIndex;
-		void run(int mode);
-		void initBackPropagation(int currentIndex);
+		void run(Mode m);
+		void initBackPropagation(int currentIndex, float learningRate);
 	};
 
 	class MultiThreadedLayer : public Layer {

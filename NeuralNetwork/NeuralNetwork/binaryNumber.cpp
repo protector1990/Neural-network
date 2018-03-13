@@ -101,7 +101,7 @@ void binaryNumberRecognitorMainLoop() {
 
 			while (true) {
 				populateTrainingSet(&trainingDataSet);
-				bnNetwork.train(trainingDataSet);
+				bnNetwork.train(trainingDataSet, LEARNING_RATE);
 				float achievedPercent = testNetwork(&bnNetwork) * 100;
 				cout << "Procenat pogodjenih: " << achievedPercent << std::endl;
 				if (achievedPercent > trainingPercent) {

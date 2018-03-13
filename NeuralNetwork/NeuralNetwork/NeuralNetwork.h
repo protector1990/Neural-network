@@ -29,7 +29,7 @@ namespace MFNeuralNetwork {
 
 		std::vector<Layer*> getLayers();
 
-		virtual void train(DataSet & dataSet, void (*progressCallback)(size_t) = nullptr);
+		virtual void train(DataSet & dataSet, float learningRate, void (*progressCallback)(size_t) = nullptr);
 		virtual int output(float* input) const;
 		std::unique_ptr<float[]> getOutputs();
 

@@ -53,7 +53,7 @@ ITexture* getTextureFromDataSet(IVideoDriver* driver, DataSet* dataSet, size_t i
 	
 
 	ITexture* tex = driver->addTexture(p, image);
-	delete image;
+	image->drop();
 	free(imageMemory);
 	return tex;
 }
@@ -148,9 +148,9 @@ void irrUpdateProgress() {
 	if (currentIndex == prevIndex) return;
 	ITexture* image = getTextureFromDataSet(driver, &trainingSet, currentIndex);
 	ITexture* oldImage = currentImage->getImage();
-	currentImage->setImage(0);
-	driver->removeTexture(oldImage);
 	currentImage->setImage(image);
+	driver->removeTexture(oldImage);
+	
 	float* output = trainingSet.getExptectedResult(currentIndex);
 	size_t i = 0;
 	for (; i < 10; ++i) {
@@ -172,10 +172,10 @@ void progressCallback(size_t currentIndexProcessed) {
 void neuralNetwork() {
 	try {
 		NetworkLoader loader;
-		NeuralNetwork* network = loader.newRandomNetwork(4, new size_t[4]{ trainingSet.getNumOfInputs(), 1500, 1000, 10 }, "pmmp", new int[4]{ 1, 4, 4, 1 });
+		//NeuralNetwork* network = loader.newRandomNetwork(3, new size_t[3]{ trainingSet.getNumOfInputs(), 200, 10 }, "pmp", new int[3]{ 1, 4, 1 });
 
-		//NeuralNetwork* network = loader.loadNetwork("minstNetworkSmall.txt", "pmmp", new int[5]{ 1, 4, 2, 1 });
-		network->train(trainingSet, progressCallback);
+		NeuralNetwork* network = loader.loadNetwork("minstNetworkSmall.txt", "pmp", new int[3]{ 1, 4, 1 });
+		network->train(trainingSet, LEARNING_RATE, progressCallback);
 		std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
 		testNetwork(network, testSet);
 		std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();

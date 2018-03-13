@@ -12,22 +12,22 @@ namespace MFNeuralNetwork {
 			unique_lock<mutex> l(_m);
 			_threadCv.wait(l, [this]() {return _started; });
 			switch (_mode) {
-			case 0: {
+			case MOD_TRAIN: {
 				int prevStartIndex = _layer->_backPropStartNeuronIndexes[_currentBackPropIndex];
 				int prevEndIndex = _layer->_backPropEndNeuronIndexes[_currentBackPropIndex];
 				Neuron* currNeuron = _startNeuron;
 				do {
-					currNeuron->train(0.2f, prevStartIndex, prevEndIndex);
+					currNeuron->train(_learningRate, prevStartIndex, prevEndIndex);
 					currNeuron++;
 				} while (currNeuron != _endNeuron);
-				currNeuron->train(0.2f, prevStartIndex, prevEndIndex);
+				currNeuron->train(_learningRate, prevStartIndex, prevEndIndex);
 				_currentBackPropIndex++;
 				if (_currentBackPropIndex == _layer->_threads.size()) {
 					_currentBackPropIndex = 0;
 				}
 				break;
 			}
-			case 1: {
+			case MOD_RESPOND: {
 				Neuron* currNeuron = _startNeuron;
 				do {
 					currNeuron->respond();
@@ -42,22 +42,23 @@ namespace MFNeuralNetwork {
 		}
 	}
 
-	void LayerWorkerThread::run(int mode)
+	void LayerWorkerThread::run(Mode m)
 	{
 		if (_started) {
 			throw exception("Thread already at work!");
 		}
 		{
 			unique_lock<mutex> l(_m);
-			_mode = mode;
+			_mode = m;
 			_started = true;
 		}
 		_threadCv.notify_one();
 	}
 
-	void LayerWorkerThread::initBackPropagation(int currentIndex)
+	void LayerWorkerThread::initBackPropagation(int currentIndex, float learningRate)
 	{
 		_currentBackPropIndex = currentIndex;
+		_learningRate = learningRate;
 	}
 
 	void MultiThreadedLayer::respond()
@@ -65,7 +66,7 @@ namespace MFNeuralNetwork {
 		_threadsAtWork = _threads.size();
 		int t = _threadsAtWork;
 		for (int i = 0; i < t; ++i) {
-			_threads[i]->run(1);
+			_threads[i]->run(LayerWorkerThread::Mode::MOD_RESPOND);
 		}
 		{
 			std::unique_lock<mutex> l(_m);
@@ -79,8 +80,8 @@ namespace MFNeuralNetwork {
 		_threadsAtWork = _threads.size();
 		int t = _threadsAtWork;
 		for (int i = 0; i < t; ++i) {
-			_threads[i]->initBackPropagation(i);
-			_threads[i]->run(0);
+			_threads[i]->initBackPropagation(i, learningRate);
+			_threads[i]->run(LayerWorkerThread::Mode::MOD_TRAIN);
 		}
 		{
 			std::unique_lock<std::mutex> l(_m);
@@ -90,7 +91,7 @@ namespace MFNeuralNetwork {
 		{
 			_threadsAtWork = _threads.size();
 			for (int j = 0; j < t; ++j) {
-				_threads[j]->run(0);
+				_threads[j]->run(LayerWorkerThread::Mode::MOD_TRAIN);
 			}
 			{
 				unique_lock<mutex> l(_m);
