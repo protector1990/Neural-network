@@ -13,7 +13,7 @@ namespace MFNeuralNetwork {
 		float _bias;
 		float _output;
 
-		float _error;
+		float _derivative;
 
 	public:
 		void train(float learningRate, int prevStartIndex, int prevEndIndex);
@@ -21,6 +21,7 @@ namespace MFNeuralNetwork {
 		~Neuron() { delete[] _weights; }
 
 		virtual void respond();
-		void setError(float desiredOutcome);
 	};
+
+	
 }

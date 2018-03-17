@@ -7,15 +7,16 @@ namespace MFNeuralNetwork {
 
 	void Neuron::train(float learningRate, int prevStartIndex, int prevEndIndex)
 	{
-		float delta = (1.f - _output) * (1.f + _output) * _error * learningRate;
+		_derivative *= (_output * (1.f - _output));
+		float delta = _derivative * learningRate;
 
 		for (int i = prevStartIndex; i <= prevEndIndex; i++) {
-			_previous[i]._error += _weights[i] * _error;
+			_previous[i]._derivative += _weights[i] * _derivative;
 			_weights[i] += _previous[i]._output * delta;
 		}
 	}
 
-	Neuron::Neuron(Layer * prevLayer) : _output(0.f), _error(0.f)
+	Neuron::Neuron(Layer * prevLayer) : _output(0.f), _derivative(0.f)
 	{
 		if (prevLayer) {
 			_previous = prevLayer->_neurons;
@@ -42,17 +43,15 @@ namespace MFNeuralNetwork {
 
 	void Neuron::respond()
 	{
+		// net
 		float sum = 0.0;
 		for (int i = 0; i < _numPrev; i++)
 			sum += _weights[i] * _previous[i]._output;
 
-		_output = sum / (1 + abs(sum));//faster, but less precise than a sigmoid function
+		// out
+		_output = sum / (1.f + exp(-sum));
 
-		_error = 0;
-	}
-
-	void Neuron::setError(float desiredOutcome)
-	{
-		_error = desiredOutcome - _output;
+		// reset dEt/dnet
+		_derivative = 0.f;
 	}
 }

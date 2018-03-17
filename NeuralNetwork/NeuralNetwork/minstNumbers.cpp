@@ -103,13 +103,18 @@ void irrlichtMain() {
 
 	while (device->run())
 	{
-		irrUpdateProgress();
-		driver->beginScene(true, true, video::SColor(255, 100, 101, 140));		
-		smgr->drawAll();
-		mgui->drawAll();
-		driver->endScene();
-		//std::cout << vec.X << ' ' << vec.Y << ' ' << vec.Z << std::endl;
-		std::this_thread::sleep_for(std::chrono::milliseconds(16));
+		//try {
+			irrUpdateProgress();
+			driver->beginScene(true, true, video::SColor(255, 100, 101, 140));
+			smgr->drawAll();
+			mgui->drawAll();
+			driver->endScene();
+			//std::cout << vec.X << ' ' << vec.Y << ' ' << vec.Z << std::endl;
+			std::this_thread::sleep_for(std::chrono::milliseconds(16));
+		//}
+		//catch (std::exception &e) {
+		//	std::cout << e.what() << std::endl;
+		//}
 	}
 	
 }
@@ -172,16 +177,16 @@ void progressCallback(size_t currentIndexProcessed) {
 void neuralNetwork() {
 	try {
 		NetworkLoader loader;
-		//NeuralNetwork* network = loader.newRandomNetwork(3, new size_t[3]{ trainingSet.getNumOfInputs(), 200, 10 }, "pmp", new int[3]{ 1, 4, 1 });
+		NeuralNetwork* network = loader.newRandomNetwork(4, new size_t[4]{ trainingSet.getNumOfInputs(), 100, 50, 10 }, "pppp"/*, new int[4]{ 1, 4, 4, 1 }*/);
 
-		NeuralNetwork* network = loader.loadNetwork("minstNetworkSmall.txt", "pmp", new int[3]{ 1, 4, 1 });
+		//NeuralNetwork* network = loader.loadNetwork("minstNetworkSmall.txt", "pmp", new int[3]{ 1, 4, 1 });
 		network->train(trainingSet, LEARNING_RATE, progressCallback);
 		std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
 		testNetwork(network, testSet);
 		std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
 		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
 		std::cout << "duration " << duration << '\n';
-		loader.saveNetwork(network, "minstNetworkSmall.txt");
+		//loader.saveNetwork(network, "minstNetworkSmall.txt");
 		delete network;
 	}
 	catch (std::exception& e) {
@@ -191,4 +196,5 @@ void neuralNetwork() {
 
 void minstNumbersRecognitorMainLoop() {
 	irrlichtMain();
+	//neuralNetwork();
 }

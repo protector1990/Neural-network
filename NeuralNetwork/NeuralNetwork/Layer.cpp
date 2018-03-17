@@ -26,14 +26,15 @@ namespace MFNeuralNetwork {
 
 	void Layer::setErrors(float* desiredResults)
 	{
-		for (int i = 0; i < _numOf; i++)
-			_neurons[i].setError(desiredResults[i]);
+		for (int i = 0; i < _numOf; i++) {
+			_neurons[i]._derivative = (_neurons[i]._output - desiredResults[i]);
+		}
 	}
 
 	void Layer::train(float learningRate)
 	{
 		for (int i = 0; i < _numOf; i++)
-			_neurons[i].train(learningRate, 0, _prevLayer->_numOf);
+			_neurons[i].train(learningRate, 0, _prevLayer->_numOf - 1);
 	}
 
 	void Layer::input(float * value)
