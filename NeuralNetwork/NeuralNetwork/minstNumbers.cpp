@@ -31,7 +31,7 @@ const wchar_t* texts[10]{ L"Zero", L"One", L"Two", L"Three", L"Four", L"Five", L
 
 ThreadDispatcher dispatcher;
 
-MinstDataSet trainingSet(10000, { "train-images.idx3-ubyte" }, { "train-labels.idx1-ubyte" });
+MinstDataSet trainingSet(60000, { "train-images.idx3-ubyte" }, { "train-labels.idx1-ubyte" });
 MinstDataSet testSet(10000, { "t10k-images.idx3-ubyte" }, { "t10k-labels.idx1-ubyte" });
 
 ITexture* getTextureFromDataSet(IVideoDriver* driver, DataSet* dataSet, size_t index) {
@@ -128,9 +128,9 @@ void testNetwork(NeuralNetwork* network, DataSet& dataSet) {
 		auto result = network->getOutputs();
 		bool hit = true;
 		int expMaxInd = 0;
-		float expMax = -10000.f;
+		float expMax = -10000.;
 		int maxInd = 0;
-		float mmax = -10000.f;
+		float mmax = -10000.;
 		
 		for (int i = 0; i < 10; ++i) {
 			if (expectedResult[i] > expMax) {
@@ -146,7 +146,7 @@ void testNetwork(NeuralNetwork* network, DataSet& dataSet) {
 			++hits;
 		}
 	}
-	std::cout << "Percentage of hits: " << ((float)hits / dataSet.getNumOfDataPoints()) * 100.f << '\n';
+	std::cout << "Percentage of hits: " << ((float)hits / dataSet.getNumOfDataPoints()) * 100. << '\n';
 }
 
 void irrUpdateProgress() {
@@ -159,7 +159,7 @@ void irrUpdateProgress() {
 	float* output = trainingSet.getExptectedResult(currentIndex);
 	size_t i = 0;
 	for (; i < 10; ++i) {
-		if (output[i] > 0.f)
+		if (output[i] > 0.)
 			break;
 	}
 	currentNumber->setText(texts[i]);
@@ -177,15 +177,17 @@ void progressCallback(size_t currentIndexProcessed) {
 void neuralNetwork() {
 	try {
 		NetworkLoader loader;
-		NeuralNetwork* network = loader.newRandomNetwork(4, new size_t[4]{ trainingSet.getNumOfInputs(), 100, 50, 10 }, "pppp"/*, new int[4]{ 1, 4, 4, 1 }*/);
+		NeuralNetwork* network = loader.newRandomNetwork(3, new size_t[3]{ trainingSet.getNumOfInputs(), 30, 10 }, "ppp", new int[4]{ 1, 4, 4, 1 });
 
-		//NeuralNetwork* network = loader.loadNetwork("minstNetworkSmall.txt", "pmp", new int[3]{ 1, 4, 1 });
-		network->train(trainingSet, LEARNING_RATE, progressCallback);
-		std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
-		testNetwork(network, testSet);
-		std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
-		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
-		std::cout << "duration " << duration << '\n';
+		while (true) {
+			//NeuralNetwork* network = loader.loadNetwork("minstNetworkSmall.txt", "pmp", new int[3]{ 1, 4, 1 });
+			network->train(trainingSet, LEARNING_RATE, progressCallback);
+			std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
+			testNetwork(network, testSet);
+			std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
+			auto duration = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
+			std::cout << "duration " << duration << '\n';
+		}
 		//loader.saveNetwork(network, "minstNetworkSmall.txt");
 		delete network;
 	}

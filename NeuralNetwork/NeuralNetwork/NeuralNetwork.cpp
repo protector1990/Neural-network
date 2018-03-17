@@ -14,6 +14,7 @@ namespace MFNeuralNetwork {
 		}
 
 		for (size_t i = 0; i < dataSet.getNumOfDataPoints(); ++i) {
+			//float *y = dataSet.getInputDataPoint(i);
 			output(dataSet.getInputDataPoint(i));
 			outputLayer.setErrors(dataSet.getExptectedResult(i));
 			for (size_t layerIndex = _numOfLayers - 1; layerIndex > 0; --layerIndex) {
@@ -39,7 +40,7 @@ namespace MFNeuralNetwork {
 		_lock->unlock();
 		return ret;
 	}
-	std::unique_ptr<float[]> NeuralNetwork::getOutputs()
+	std::unique_ptr<double[]> NeuralNetwork::getOutputs()
 	{
 		return _layers[_numOfLayers - 1]->outputSet();
 	}

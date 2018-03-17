@@ -44,7 +44,8 @@ namespace MFNeuralNetwork {
 		char p;
 		for (size_t pixelIter = 0; pixelIter < _partitionSize * _numOfInputs; ++pixelIter) {
 			_imagesIn.read(&p, 1);
-			_inputs[pixelIter] = p / 255.f;
+			unsigned char p1 = p;
+			_inputs[pixelIter] = p1 / 255.f;
 		}
 		for (size_t labelIter = 0; labelIter < _partitionSize; ++labelIter) {
 			_labelsIn.read(&p, 1);

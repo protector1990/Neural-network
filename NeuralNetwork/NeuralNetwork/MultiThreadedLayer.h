@@ -43,7 +43,7 @@ namespace MFNeuralNetwork {
 		std::condition_variable _layerCv;
 		virtual void respond() override;
 
-		virtual void train(float learningRate) override;
+		virtual void train(double learningRate) override;
 
 		void threadFinished();
 

@@ -35,7 +35,7 @@ namespace MFNeuralNetwork {
 				in >> bias;
 				Neuron* currentNeuron = new (neurons + neuronIter) Neuron(prevLayer);
 				currentNeuron->_bias = bias;
-				float* weights = currentNeuron->_weights;
+				double* weights = currentNeuron->_weights;
 				for (size_t weightsIter = 0; weightsIter < numOfInputs; ++weightsIter) {
 					in >> weights[weightsIter];
 				}
@@ -50,7 +50,7 @@ namespace MFNeuralNetwork {
 	{
 		random_device rd;
 		mt19937 gen(rd());
-		uniform_real_distribution<float> dis(-1.f, 1.f);
+		uniform_real_distribution<float> dis(-1., 1.);
 		size_t numOfInputs = 0;
 		NeuralNetwork* ret = new NeuralNetwork(numOfLayers);
 		Layer* prevLayer = nullptr;
@@ -72,7 +72,7 @@ namespace MFNeuralNetwork {
 				float bias = 0; //for now
 				Neuron* currentNeuron = new (neurons + neuronIter) Neuron(prevLayer);
 				currentNeuron->_bias = bias;
-				float* weights = currentNeuron->_weights;
+				double* weights = currentNeuron->_weights;
 				for (size_t weightsIter = 0; weightsIter < numOfInputs; ++weightsIter) {
 					weights[weightsIter] = dis(gen);
 				}

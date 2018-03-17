@@ -31,7 +31,7 @@ namespace MFNeuralNetwork {
 
 		virtual void train(DataSet & dataSet, float learningRate, void (*progressCallback)(size_t) = nullptr);
 		virtual int output(float* input) const;
-		std::unique_ptr<float[]> getOutputs();
+		std::unique_ptr<double[]> getOutputs();
 
 		size_t getNumberOfInputs();
 		size_t getNumberOfOutputs();

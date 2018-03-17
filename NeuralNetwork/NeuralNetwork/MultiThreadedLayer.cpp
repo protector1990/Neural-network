@@ -74,7 +74,7 @@ namespace MFNeuralNetwork {
 		}
 	}
 
-	void MultiThreadedLayer::train(float learningRate)
+	void MultiThreadedLayer::train(double learningRate)
 	{
 
 		_threadsAtWork = _threads.size();

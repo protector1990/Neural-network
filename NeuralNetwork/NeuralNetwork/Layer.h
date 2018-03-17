@@ -15,7 +15,7 @@ namespace MFNeuralNetwork {
 
 		void input(float * value);
 		int output();
-		std::unique_ptr<float[]> outputSet();
+		std::unique_ptr<double[]> outputSet();
 	public:
 		Layer(int numNeurons, Layer * previousLayer = nullptr);
 		~Layer();
@@ -26,6 +26,6 @@ namespace MFNeuralNetwork {
 
 		virtual void respond();
 		void setErrors(float* desiredResults);
-		virtual void train(float learningRate);
+		virtual void train(double learningRate);
 	};
 }
