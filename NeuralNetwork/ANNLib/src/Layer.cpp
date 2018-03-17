@@ -1,5 +1,5 @@
-#include "Layer.h"
-#include "Neuron.h"
+#include "..\incl\Layer.h"
+#include "..\incl\Neuron.h"
 #include <stdlib.h>
 #include <new>
 

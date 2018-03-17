@@ -1,7 +1,7 @@
-#include "NetworkLoader.h"
+#include "..\incl\NetworkLoader.h"
 #include <fstream>
 #include <random>
-#include "MultiThreadedLayer.h"
+#include "..\incl\MultiThreadedLayer.h"
 
 using namespace std;
 

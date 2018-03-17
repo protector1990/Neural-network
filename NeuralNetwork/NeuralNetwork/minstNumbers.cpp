@@ -1,7 +1,7 @@
 #include "programs.h"
-#include "NeuralNetwork.h"
-#include "MinstDataSet.h"
-#include "NetworkLoader.h"
+#include <NeuralNetwork.h>
+#include <MinstDataSet.h>
+#include <NetworkLoader.h>
 #include <iostream>
 #include <thread>
 #include <chrono>

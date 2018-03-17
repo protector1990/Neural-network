@@ -1,4 +1,4 @@
-#include "MinstDataSet.h"
+#include "..\incl\MinstDataSet.h"
 #include <iostream>
 #include <cmath>
 

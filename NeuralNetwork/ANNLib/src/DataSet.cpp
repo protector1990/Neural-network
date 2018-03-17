@@ -1,4 +1,4 @@
-#include "DataSet.h"
+#include "..\incl\DataSet.h"
 
 namespace MFNeuralNetwork {
 	DataSet::DataSet(size_t numOfDataPoints, size_t numOfInputs, size_t numOfOutputs) :

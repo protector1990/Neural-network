@@ -6,9 +6,12 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NeuralNetwork", "NeuralNetwork\NeuralNetwork.vcxproj", "{808F2A41-7FBB-41C6-AEC3-B540E3B3074C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E08E042A-6C45-411B-92BE-3CC31331019F} = {E08E042A-6C45-411B-92BE-3CC31331019F}
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659} = {863F0437-FB1B-4838-9A41-A2ECBA2C4659}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Irrlicht", "irrlicht\source\Irrlicht\Irrlicht12.0.vcxproj", "{E08E042A-6C45-411B-92BE-3CC31331019F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ANNLib", "ANNLib\ANNLib.vcxproj", "{863F0437-FB1B-4838-9A41-A2ECBA2C4659}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,6 +87,34 @@ Global
 		{E08E042A-6C45-411B-92BE-3CC31331019F}.Static lib - Release|x64.Build.0 = Static lib - Release|x64
 		{E08E042A-6C45-411B-92BE-3CC31331019F}.Static lib - Release|x86.ActiveCfg = Static lib - Release|Win32
 		{E08E042A-6C45-411B-92BE-3CC31331019F}.Static lib - Release|x86.Build.0 = Static lib - Release|Win32
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.Debug|x64.ActiveCfg = Debug|x64
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.Debug|x64.Build.0 = Debug|x64
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.Debug|x86.ActiveCfg = Debug|Win32
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.Debug|x86.Build.0 = Debug|Win32
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.Release - Fast FPU|x64.ActiveCfg = Release|x64
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.Release - Fast FPU|x64.Build.0 = Release|x64
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.Release - Fast FPU|x86.ActiveCfg = Release|Win32
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.Release - Fast FPU|x86.Build.0 = Release|Win32
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.Release|x64.ActiveCfg = Release|x64
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.Release|x64.Build.0 = Release|x64
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.Release|x86.ActiveCfg = Release|Win32
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.Release|x86.Build.0 = Release|Win32
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.SDL-Debug|x64.ActiveCfg = Debug|x64
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.SDL-Debug|x64.Build.0 = Debug|x64
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.SDL-Debug|x86.ActiveCfg = Debug|Win32
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.SDL-Debug|x86.Build.0 = Debug|Win32
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.Static lib - Debug|x64.ActiveCfg = Debug|x64
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.Static lib - Debug|x64.Build.0 = Debug|x64
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.Static lib - Debug|x86.ActiveCfg = Debug|Win32
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.Static lib - Debug|x86.Build.0 = Debug|Win32
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.Static lib - Release - Fast FPU|x64.ActiveCfg = Release|x64
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.Static lib - Release - Fast FPU|x64.Build.0 = Release|x64
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.Static lib - Release - Fast FPU|x86.ActiveCfg = Release|Win32
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.Static lib - Release - Fast FPU|x86.Build.0 = Release|Win32
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.Static lib - Release|x64.ActiveCfg = Release|x64
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.Static lib - Release|x64.Build.0 = Release|x64
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.Static lib - Release|x86.ActiveCfg = Release|Win32
+		{863F0437-FB1B-4838-9A41-A2ECBA2C4659}.Static lib - Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

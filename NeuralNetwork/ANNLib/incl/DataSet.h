@@ -10,15 +10,15 @@ namespace MFNeuralNetwork {
 		DataSet() {}
 	public:
 		DataSet(size_t numOfDataPoints, size_t numOfInputs, size_t numOfOutputs);
-		inline size_t DataSet::getNumOfDataPoints() const
+		inline size_t getNumOfDataPoints() const
 		{
 			return _numOfDataPoints;
 		}
-		inline size_t DataSet::getNumOfInputs() const
+		inline size_t getNumOfInputs() const
 		{
 			return _numOfInputs;
 		}
-		inline size_t DataSet::getNumOfOutputs() const
+		inline size_t getNumOfOutputs() const
 		{
 			return _numOfOutputs;
 		}

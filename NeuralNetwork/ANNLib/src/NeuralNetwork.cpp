@@ -1,7 +1,7 @@
-#include "NeuralNetwork.h"
+#include "..\incl\NeuralNetwork.h"
 #include <random>
 #include <iostream>
-#include "NeuralNetwork.h"
+#include "..\incl\NeuralNetwork.h"
 
 namespace MFNeuralNetwork {
 

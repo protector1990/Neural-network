@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{492a7cce-a5ec-4b11-8637-8dd06b8e0320}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{d3ee6f4b-a51f-4d4f-b727-b04bda87c472}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Layer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MinstDataSet.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MultiThreadedLayer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NetworkLoader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NeuralNetwork.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PartitionedDataSet.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PlainDataSet.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Neuron.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DataSet.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="incl\DataSet.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="incl\Layer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="incl\MinstDataSet.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="incl\MultiThreadedLayer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="incl\NetworkLoader.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="incl\NeuralNetwork.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="incl\Neuron.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="incl\PartitionedDataSet.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="incl\Perceptron.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="incl\PlainDataSet.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="incl\BinNumNetwork.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

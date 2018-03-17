@@ -1,4 +1,4 @@
-#include "PartitionedDataSet.h"
+#include "..\incl\PartitionedDataSet.h"
 #include <exception>
 
 namespace MFNeuralNetwork {

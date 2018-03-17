@@ -1,9 +1,9 @@
 #include <iostream>
-#include "NeuralNetwork.h"
+#include <NeuralNetwork.h>
 #include <random>
-#include "NetworkLoader.h"
+#include <NetworkLoader.h>
 #include "programs.h"
-#include "PlainDataSet.h"
+#include <PlainDataSet.h>
 
 using namespace std;
 using namespace MFNeuralNetwork;

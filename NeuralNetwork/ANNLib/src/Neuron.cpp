@@ -1,5 +1,5 @@
-#include "Neuron.h"
-#include "Layer.h"
+#include "..\incl\Neuron.h"
+#include "..\incl\Layer.h"
 #include <random>
 #include <cmath>
 

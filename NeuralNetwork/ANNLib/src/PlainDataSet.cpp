@@ -1,4 +1,4 @@
-#include "PlainDataSet.h"
+#include "..\incl\PlainDataSet.h"
 #include <memory>
 
 namespace MFNeuralNetwork {

@@ -1,4 +1,4 @@
-#include "BinNumNetwork.h"
+#include "..\incl\BinNumNetwork.h"
 #include <random>
 #include <iostream>
 

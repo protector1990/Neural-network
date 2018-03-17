@@ -8,50 +8,11 @@
     <Filter Include="src\programs">
       <UniqueIdentifier>{d8326f5e-7715-494f-9e0f-506bdc525c34}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\DataSet">
-      <UniqueIdentifier>{59619b5a-2b83-4c54-8c43-7377eec8a540}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Thread">
       <UniqueIdentifier>{a5744932-e2fb-478d-8584-467d60fbe685}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\NeuralNetwork">
-      <UniqueIdentifier>{50740804-5c59-47ef-9727-98bf2aee298e}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BinNumNetwork.h">
-      <Filter>src\NeuralNetwork</Filter>
-    </ClInclude>
-    <ClInclude Include="Layer.h">
-      <Filter>src\NeuralNetwork</Filter>
-    </ClInclude>
-    <ClInclude Include="MultiThreadedLayer.h">
-      <Filter>src\NeuralNetwork</Filter>
-    </ClInclude>
-    <ClInclude Include="NetworkLoader.h">
-      <Filter>src\NeuralNetwork</Filter>
-    </ClInclude>
-    <ClInclude Include="NeuralNetwork.h">
-      <Filter>src\NeuralNetwork</Filter>
-    </ClInclude>
-    <ClInclude Include="Neuron.h">
-      <Filter>src\NeuralNetwork</Filter>
-    </ClInclude>
-    <ClInclude Include="Perceptron.h">
-      <Filter>src\NeuralNetwork</Filter>
-    </ClInclude>
-    <ClInclude Include="DataSet.h">
-      <Filter>src\DataSet</Filter>
-    </ClInclude>
-    <ClInclude Include="MinstDataSet.h">
-      <Filter>src\DataSet</Filter>
-    </ClInclude>
-    <ClInclude Include="PartitionedDataSet.h">
-      <Filter>src\DataSet</Filter>
-    </ClInclude>
-    <ClInclude Include="PlainDataSet.h">
-      <Filter>src\DataSet</Filter>
-    </ClInclude>
     <ClInclude Include="ThreadDispatcher.h">
       <Filter>src\Thread</Filter>
     </ClInclude>
@@ -72,38 +33,11 @@
     <ClCompile Include="minstNumbers.cpp">
       <Filter>src\programs</Filter>
     </ClCompile>
-    <ClCompile Include="DataSet.cpp">
-      <Filter>src\DataSet</Filter>
-    </ClCompile>
-    <ClCompile Include="PlainDataSet.cpp">
-      <Filter>src\DataSet</Filter>
-    </ClCompile>
-    <ClCompile Include="PartitionedDataSet.cpp">
-      <Filter>src\DataSet</Filter>
-    </ClCompile>
-    <ClCompile Include="MinstDataSet.cpp">
-      <Filter>src\DataSet</Filter>
-    </ClCompile>
     <ClCompile Include="WorkerThread.cpp">
       <Filter>src\Thread</Filter>
     </ClCompile>
     <ClCompile Include="ThreadDispatcher.cpp">
       <Filter>src\Thread</Filter>
-    </ClCompile>
-    <ClCompile Include="Layer.cpp">
-      <Filter>src\NeuralNetwork</Filter>
-    </ClCompile>
-    <ClCompile Include="NetworkLoader.cpp">
-      <Filter>src\NeuralNetwork</Filter>
-    </ClCompile>
-    <ClCompile Include="NeuralNetwork.cpp">
-      <Filter>src\NeuralNetwork</Filter>
-    </ClCompile>
-    <ClCompile Include="Neuron.cpp">
-      <Filter>src\NeuralNetwork</Filter>
-    </ClCompile>
-    <ClCompile Include="MultiThreadedLayer.cpp">
-      <Filter>src\NeuralNetwork</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
