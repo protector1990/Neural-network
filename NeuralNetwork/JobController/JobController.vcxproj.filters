@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="JDLParser">
+      <UniqueIdentifier>{7f176aea-4282-4b8a-943b-c68675d26cf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scheduler">
+      <UniqueIdentifier>{de035511-df22-4f22-82d0-d7b8fbe23a6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sqlite">
+      <UniqueIdentifier>{28ca6db0-f748-4013-aa8f-b750294b4ff7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data">
+      <UniqueIdentifier>{8380bc54-3a09-4345-beff-658fcf43e2ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data\Model">
+      <UniqueIdentifier>{0c1dfe72-f6a5-4889-984a-a1d945ecfba2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data\Repository">
+      <UniqueIdentifier>{86256dbe-7ae9-40d0-81d5-525b73d92c5b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="sqlite\shell.c">
+      <Filter>sqlite</Filter>
+    </ClCompile>
+    <ClCompile Include="sqlite\sqlite3.c">
+      <Filter>sqlite</Filter>
+    </ClCompile>
+    <ClCompile Include="Job.cpp">
+      <Filter>Data\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Data</Filter>
+    </ClCompile>
+    <ClCompile Include="Repository.cpp">
+      <Filter>Data\Repository</Filter>
+    </ClCompile>
+    <ClCompile Include="JobRepository.cpp">
+      <Filter>Data\Repository</Filter>
+    </ClCompile>
+    <ClCompile Include="JobExecutionRepository.cpp">
+      <Filter>Data\Repository</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="sqlite\sqlite3ext.h">
+      <Filter>sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="sqlite\sqlite3.h">
+      <Filter>sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="Job.h">
+      <Filter>Data\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="JobFragment.h">
+      <Filter>Data\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="JobExecution.h">
+      <Filter>Data\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Repository.h">
+      <Filter>Data\Repository</Filter>
+    </ClInclude>
+    <ClInclude Include="JobExecutionRepository.h">
+      <Filter>Data\Repository</Filter>
+    </ClInclude>
+    <ClInclude Include="JobRepository.h">
+      <Filter>Data\Repository</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
