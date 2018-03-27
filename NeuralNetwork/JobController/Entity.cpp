@@ -11,3 +11,11 @@ Entity::~Entity() {
 		_repo->detachFromContext(this);
 	}
 }
+
+bool Entity::equals(const Entity * other) const
+{
+	if (typeid(*this) != typeid(*other)) {
+		return false;
+	}
+	return _id == other->_id;
+}

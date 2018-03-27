@@ -19,8 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DataSet.cpp" />
+    <ClCompile Include="DataSetRepository.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="JobExecution.cpp" />
     <ClCompile Include="JobExecutionRepository.cpp" />
+    <ClCompile Include="JobExecutor.cpp" />
+    <ClCompile Include="JobFragment.cpp" />
+    <ClCompile Include="JobFragmentExecution.cpp" />
     <ClCompile Include="JobRepository.cpp" />
     <ClCompile Include="Repository.cpp" />
     <ClCompile Include="Job.cpp" />
@@ -29,10 +35,14 @@
     <ClCompile Include="sqlite\sqlite3.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DataSet.h" />
+    <ClInclude Include="DataSetRepository.h" />
     <ClInclude Include="Job.h" />
     <ClInclude Include="JobExecution.h" />
     <ClInclude Include="JobExecutionRepository.h" />
+    <ClInclude Include="JobExecutor.h" />
     <ClInclude Include="JobFragment.h" />
+    <ClInclude Include="JobFragmentExecution.h" />
     <ClInclude Include="JobRepository.h" />
     <ClInclude Include="Repository.h" />
     <ClInclude Include="Entity.h" />
@@ -97,8 +107,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\boost\date_time;..\</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_NONSTDC_NO_DEPRECATE;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -137,8 +146,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\boost\date_time;..\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

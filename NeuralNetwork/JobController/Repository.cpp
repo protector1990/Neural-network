@@ -25,21 +25,22 @@ using namespace MFNeuralNetwork::Data;
 
 		void Repository::detachFromContext(Entity* entity)
 		{
-			_entities.erase(entity);
+			_entityCache.erase(entity);
 			entity->_attachedToContext = false;
 			entity->_repo = nullptr;
+			entity->_dirty = true;
 		}
 
 		void Repository::attachToContext(Entity* entity, bool autoReidentify)
 		{
 			Entity* rawEnt = entity;
-			auto ret = _entities.emplace(rawEnt);
+			auto ret = _entityCache.emplace(rawEnt);
 			if (!ret.second) {
 				if (!autoReidentify) {
 					throw RepoException("Entity already exists in context");
 				}
 				setNewIdentity(rawEnt);
-				auto ret2 = _entities.emplace(rawEnt);
+				auto ret2 = _entityCache.emplace(rawEnt);
 				if (!ret.second) {
 					throw RepoException("Error attaching to context");
 				}
@@ -52,6 +53,12 @@ using namespace MFNeuralNetwork::Data;
 			_db(db),
 			_entityTypeInfoHash(typeInfoHash)
 		{
+		}
+
+		void Repository::setNewIdentity(Entity * entity)
+		{
+			entity->_id = _lastIndex++;
+			entity->_dirty = true;
 		}
 
 		

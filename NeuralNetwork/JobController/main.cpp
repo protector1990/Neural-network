@@ -1,8 +1,11 @@
 #include "sqlite\sqlite3.h"
 #include <stdio.h>
 #include <iostream>
+#include "JobRepository.h"
+#include "Job.h"
 
 using namespace std;
+using namespace MFNeuralNetwork::Data;
 
 static int callback(void *NotUsed, int argc, char **argv, char **azColName){
     int i;
@@ -24,5 +27,9 @@ void main() {
 	if (rc) {
 		return;
 	}
+	JobRepository s(db);
+	shared_ptr<Job> job = static_pointer_cast<Job, Entity>(s.createNewEntity<Job>());
+	job->addJobFragment(0);
+
 	system("pause");
 }

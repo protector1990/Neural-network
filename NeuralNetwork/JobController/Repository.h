@@ -27,12 +27,12 @@ namespace MFNeuralNetwork {
 		};
 		class Repository {
 		protected:
-			std::unordered_set<Entity*,hash<Entity*>, EntCompareStruct> _entities;
+			std::unordered_set<Entity*,hash<Entity*>, EntCompareStruct> _entityCache;
 			size_t _entityTypeInfoHash;
-			virtual Entity* populateFromDataSet(int argc, char **argv, char **azColName) = 0;
 			virtual Entity* populateFromPreparedStatement(sqlite3_stmt* s) = 0;
-			virtual void setNewIdentity(Entity* entity) = 0;
+			void setNewIdentity(Entity* entity);
 			sqlite3* _db;
+			long long _lastIndex;
 		public:
 			
 			void detachFromContext(Entity* entity);
@@ -41,8 +41,51 @@ namespace MFNeuralNetwork {
 			virtual void mDelete(Entity* entity) = 0;
 			virtual void save(Entity* entity) = 0;
 			virtual void update(Entity* entity) = 0;
-			virtual std::shared_ptr<Entity> getNewentity() = 0;
+			template <typename T>
+			std::shared_ptr<Entity> createNewEntity() {
+				T* ret = new T();
+				ret->_dirty = true;
+				attachToContext(ret, true);
+				Entity* en = (Entity*)ret;
+				return shared_ptr<Entity>(en);
+			}
 			Repository(sqlite3* db, size_t typeinfo);
+
+			//using T = Entity;
+			template <class T>
+			class PreparedStatementResultGetter {
+			public:
+				static std::vector<std::shared_ptr<T>> getResultFromPreparedStatement(sqlite3_stmt* stmt, Repository* repo) {
+					bool run = true;
+					while (run) {
+						int status = sqlite3_step(_getAllJobExecutionsForJobStatement);
+						switch (status) {
+						case SQLITE_ROW:
+							Entity * ent = repo->populateFromPreparedStatement(_getAllJobExecutionsForJobStatement);
+							for (auto entity : _entityCache) {
+								if (entity->equals(ent)) {
+									ret.push_back(shared_ptr<JobExecution>((T*)entity));
+									delete ent;
+									continue;
+								}
+							}
+							if (!_entityCache.emplace(ent).second) {
+								throw RepoException("Inserting to entitites set failed");
+							}
+							break;
+						case SQLITE_DONE:
+							run = false;
+							break;
+						default:
+							run = false;
+							throw RepoException("Something went wrong with the query.");
+							break;
+						}
+					}
+					sqlite3_reset(stmt);
+					return ret;
+				}
+			};
 		};
 	}
 }
