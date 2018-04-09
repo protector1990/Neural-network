@@ -1,4 +1,5 @@
 #include "Job.h"
+#include "JobExecution.h"
 
 using namespace MFNeuralNetwork::Data;
 
@@ -8,16 +9,17 @@ using namespace MFNeuralNetwork::Data;
 //	_dirty = true;
 //}
 
-void MFNeuralNetwork::Data::Job::addJobFragment(std::shared_ptr<JobFragment> jobFragment) {
+void Job::addJobFragment(std::shared_ptr<JobFragment> jobFragment) {
 	_jobFragments.push_back(jobFragment);
-	jobFragment->setJob(WEAK_JOB_PTR(this));
+	jobFragment->setJob(this);
 }
 
-void MFNeuralNetwork::Data::Job::addJobExecution(std::shared_ptr<JobExecution> jobExecution) {
+void Job::addJobExecution(std::shared_ptr<JobExecution> jobExecution) {
 	_jobExecutions.push_back(jobExecution);
+	jobExecution->setJob(this);
 }
 
-void MFNeuralNetwork::Data::Job::releaseFinishedExecutions() {
+void Job::releaseFinishedExecutions() {
 	auto rIter = _jobExecutions.rbegin();
 	auto rIterEnd = _jobExecutions.rend();
 	while (rIter != rIterEnd) {
@@ -28,7 +30,7 @@ void MFNeuralNetwork::Data::Job::releaseFinishedExecutions() {
 	}
 }
 
-MFNeuralNetwork::Data::Job::~Job()
+Job::~Job()
 {
 	for (auto fragment : _jobFragments) {
 		// persist job fragments

@@ -22,6 +22,7 @@ namespace MFNeuralNetwork {
 			long long getId() {
 				return _id;
 			}
+			void dispose();
 		};
 	}
 }

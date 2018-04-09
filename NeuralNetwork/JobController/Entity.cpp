@@ -19,3 +19,8 @@ bool Entity::equals(const Entity * other) const
 	}
 	return _id == other->_id;
 }
+
+void MFNeuralNetwork::Data::Entity::dispose()
+{
+	delete this;
+}

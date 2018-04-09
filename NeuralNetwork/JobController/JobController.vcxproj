@@ -27,6 +27,8 @@
     <ClCompile Include="JobExecutor.cpp" />
     <ClCompile Include="JobFragment.cpp" />
     <ClCompile Include="JobFragmentExecution.cpp" />
+    <ClCompile Include="JobFragmentExecutionRepository.cpp" />
+    <ClCompile Include="JobFragmentRepository.cpp" />
     <ClCompile Include="JobRepository.cpp" />
     <ClCompile Include="Repository.cpp" />
     <ClCompile Include="Job.cpp" />
@@ -43,6 +45,8 @@
     <ClInclude Include="JobExecutor.h" />
     <ClInclude Include="JobFragment.h" />
     <ClInclude Include="JobFragmentExecution.h" />
+    <ClInclude Include="JobFragmentExecutionRepository.h" />
+    <ClInclude Include="JobFragmentRepository.h" />
     <ClInclude Include="JobRepository.h" />
     <ClInclude Include="Repository.h" />
     <ClInclude Include="Entity.h" />

@@ -33,11 +33,14 @@ namespace MFNeuralNetwork {
 			void setNewIdentity(Entity* entity);
 			sqlite3* _db;
 			long long _lastIndex;
+			// Should be prepared by subclasses
+			sqlite3_stmt* _getByIdStatement;
 		public:
 			
 			void detachFromContext(Entity* entity);
 			void attachToContext(Entity* entity, bool autoReidentify = false);
 			void persist(Entity* entity);
+			Entity* getById(long long id);
 			virtual void mDelete(Entity* entity) = 0;
 			virtual void save(Entity* entity) = 0;
 			virtual void update(Entity* entity) = 0;
@@ -58,19 +61,24 @@ namespace MFNeuralNetwork {
 				static std::vector<std::shared_ptr<T>> getResultFromPreparedStatement(sqlite3_stmt* stmt, Repository* repo) {
 					bool run = true;
 					while (run) {
-						int status = sqlite3_step(_getAllJobExecutionsForJobStatement);
+						int status = sqlite3_step(stmt);
 						switch (status) {
 						case SQLITE_ROW:
-							Entity * ent = repo->populateFromPreparedStatement(_getAllJobExecutionsForJobStatement);
+							bool existsInCache = false;
+							Entity * ent = repo->populateFromPreparedStatement(stmt);
 							for (auto entity : _entityCache) {
 								if (entity->equals(ent)) {
-									ret.push_back(shared_ptr<JobExecution>((T*)entity));
+									existsInCache = true;
+									ret.push_back(shared_ptr<T>((T*)entity));
 									delete ent;
 									continue;
 								}
 							}
 							if (!_entityCache.emplace(ent).second) {
-								throw RepoException("Inserting to entitites set failed");
+								throw RepoException("Inserting to entitityCache set failed");
+							}
+							if (!existsInCache) {
+								repo->attachToContext(ent);
 							}
 							break;
 						case SQLITE_DONE:

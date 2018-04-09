@@ -10,6 +10,8 @@ using namespace MFNeuralNetwork::Data;
 Entity * MFNeuralNetwork::Data::JobRepository::populateFromPreparedStatement(sqlite3_stmt * s)
 {
 	Job* ret = new Job();
+	ret->_id = sqlite3_column_int64(s, 1);
+	return ret;
 }
 
 void MFNeuralNetwork::Data::JobRepository::save(Entity * entity)
@@ -46,7 +48,7 @@ int MFNeuralNetwork::Data::JobRepository::getMaxIdCallback(void* t, int num, cha
 
 std::vector<std::shared_ptr<Job>> MFNeuralNetwork::Data::JobRepository::loadAllJobs()
 {
-	return std::vector<std::shared_ptr<Job>>();
+	return PreparedStatementResultGetter<Job>::getResultFromPreparedStatement(_loadAllJobsStatement, this);
 }
 
 std::vector<std::shared_ptr<Job>> MFNeuralNetwork::Data::JobRepository::getUnfinishedJobs()
@@ -64,7 +66,7 @@ JobRepository* JobRepository::_instance = nullptr;
 JobRepository::JobRepository(sqlite3 * db) :
 	Repository(db, typeid(Job).hash_code())
 {
-	char* zsql = new char[1024];
+	char zsql[1024];
 	strcpy(zsql, "INSERT INTO job VALUES (id = ?);");
 	char* tail = zsql + 33;
 	sqlite3_prepare_v2(_db, zsql, 1024, &_saveStatement, &tail);
@@ -80,5 +82,8 @@ JobRepository::JobRepository(sqlite3 * db) :
 	sprintf(zsql, "SELECT * FROM job;");
 	tail = zsql + 18;
 	sqlite3_prepare_v2(_db, zsql, 1024, &_loadAllJobsStatement, &tail);
+	sprintf(zsql, "SELECT * FROM job WHERE job.id = ?;");
+	tail = zsql + 35;
+	sqlite3_prepare_v2(_db, zsql, 1024, &_getByIdStatement, &tail);
 	sqlite3_exec(db, "SELECT MAX(id) FROM job;", JobRepository::getMaxIdCallback, this, 0);
 }

@@ -3,6 +3,12 @@
 namespace MFNeuralNetwork {
 	namespace Data {
 		using namespace std;
+		int DataSetRepository::getMaxIdCallback(void * t, int num, char ** values, char ** names)
+		{
+			DataSetRepository* instance = (DataSetRepository*)t;
+			instance->_lastIndex = stoll({ values[0] });
+			return 0;
+		}
 		Entity * DataSetRepository::populateFromPreparedStatement(sqlite3_stmt * s)
 		{
 			DataSet* ret = new DataSet();
@@ -17,7 +23,7 @@ namespace MFNeuralNetwork {
 		DataSetRepository::DataSetRepository(sqlite3 * db)
 			: Repository(db, typeid(DataSet).hash_code())
 		{
-			char* zsql = new char[1024];
+			char zsql[1024];
 
 			strcpy(zsql, "INSERT INTO data_set VALUES (?, ?, ?);");
 			char* tail = zsql + 39;
@@ -38,6 +44,10 @@ namespace MFNeuralNetwork {
 			sprintf(zsql, "SELECT * FROM data_set WHERE data_set.name = ?;");
 			tail = zsql + 47;
 			sqlite3_prepare_v2(_db, zsql, 1024, &_getByNameStatement, &tail);
+
+			sprintf(zsql, "SELECT * FROM data_set WHERE data_set.id = ?;");
+			tail = zsql + 45;
+			sqlite3_prepare_v2(_db, zsql, 1024, &_getByIdStatement, &tail);
 			
 			sqlite3_exec(db, "SELECT MAX(id) FROM data_set;", DataSetRepository::getMaxIdCallback, this, 0);
 		}

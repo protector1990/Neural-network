@@ -10,7 +10,7 @@ namespace MFNeuralNetwork {
 		typedef unsigned short ushort;
 		typedef unsigned int uint;
 		enum JobExecutorStatus {UNRESPONSIVE = 1, AVAILABLE, BUSY};
-		class JobExecutor : private Entity {
+		class JobExecutor : public Entity {
 		private:
 			JobExecutorStatus _status;
 			ushort _numberofThreads;

@@ -5,8 +5,6 @@
 #include "JobFragment.h"
 #include "JobRepository.h"
 
-#define WEAK_JOB_PTR(x) std::weak_ptr<Job>(std::shared_ptr<Job>(x))
-
 namespace MFNeuralNetwork {
 	namespace Data {
 		class Job : public Entity {

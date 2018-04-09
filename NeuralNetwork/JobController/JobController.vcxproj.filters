@@ -61,6 +61,12 @@
     <ClCompile Include="JobExecutor.cpp">
       <Filter>Data\Model</Filter>
     </ClCompile>
+    <ClCompile Include="JobFragmentRepository.cpp">
+      <Filter>Data\Repository</Filter>
+    </ClCompile>
+    <ClCompile Include="JobFragmentExecutionRepository.cpp">
+      <Filter>Data\Repository</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sqlite\sqlite3ext.h">
@@ -100,6 +106,12 @@
       <Filter>Data\Model</Filter>
     </ClInclude>
     <ClInclude Include="DataSetRepository.h">
+      <Filter>Data\Repository</Filter>
+    </ClInclude>
+    <ClInclude Include="JobFragmentRepository.h">
+      <Filter>Data\Repository</Filter>
+    </ClInclude>
+    <ClInclude Include="JobFragmentExecutionRepository.h">
       <Filter>Data\Repository</Filter>
     </ClInclude>
   </ItemGroup>

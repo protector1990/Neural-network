@@ -23,6 +23,22 @@ using namespace MFNeuralNetwork::Data;
 			}
 		}
 
+		Entity * MFNeuralNetwork::Data::Repository::getById(long long id)
+		{
+			// Maybe entityCache should be a hash map, with id as the key?
+			for (auto entity : _entityCache) {
+				if (entity->_id == id) {
+					return entity;
+				}
+			}
+			sqlite3_bind_int64(_getByIdStatement, 1, id);
+			sqlite3_step(_getByIdStatement);
+			Entity* ret = populateFromPreparedStatement(_getByIdStatement);
+			sqlite3_reset(_getByIdStatement);
+			attachToContext(ret);
+			return ret;
+		}
+
 		void Repository::detachFromContext(Entity* entity)
 		{
 			_entityCache.erase(entity);

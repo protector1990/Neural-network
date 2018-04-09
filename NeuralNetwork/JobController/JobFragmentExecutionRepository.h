@@ -1,0 +1,28 @@
+#pragma once
+#include "Repository.h"
+#include "JobFragmentExecution.h"
+
+namespace MFNeuralNetwork {
+	namespace Data {
+		class JobFragmentExecutionRepository : public Repository {
+		private:
+			sqlite3_stmt * _getAllJobFragExecsForJobFragStatement;
+			sqlite3_stmt * _getAllJobFragExecsForJobFragExecStatement;
+			sqlite3_stmt * _getUnfinishedJobFragExecsForJobStatement;
+			sqlite3_stmt * _saveStatement;
+			sqlite3_stmt * _updateStatement;
+			sqlite3_stmt * _deleteStatement;
+			Entity* populateFromPreparedStatement(sqlite3_stmt* s) override;
+			static int getMaxIdCallback(void* t, int num, char** values, char** names);
+			static JobFragmentExecutionRepository* _instance;
+		public:
+			void save(Entity* entity) override;
+			void update(Entity* entity) override;
+			void mDelete(Entity* entity) override;
+			std::vector <std::shared_ptr<JobFragmentExecution>> getAllForJobFrag(JobFragment* job);
+			std::vector <std::shared_ptr<JobFragmentExecution>> getUnfinishedForJobFrag(JobFragment* job);
+			JobFragmentExecutionRepository(sqlite3* db);
+			static JobFragmentExecutionRepository* getInstance();
+		};
+	}
+}

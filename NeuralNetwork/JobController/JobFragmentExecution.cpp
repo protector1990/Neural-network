@@ -6,19 +6,19 @@ using namespace boost::posix_time;
 namespace MFNeuralNetwork {
 	namespace Data {
 
-		void JobFragmentExecution::setJobFragment(weak_ptr<JobFragment> jobFragment)
+		void JobFragmentExecution::setJobFragment(JobFragment* jobFragment)
 		{
 			_jobFragment = jobFragment;
 			_dirty = true;
 		}
 
-		void JobFragmentExecution::setJobExecutor(std::weak_ptr<JobExecutor> jobExecutor)
+		void JobFragmentExecution::setJobExecutor(JobExecutor* jobExecutor)
 		{
 			_jobExecutor = jobExecutor;
 			_dirty = true;
 		}
 
-		std::weak_ptr<JobExecutor> JobFragmentExecution::getJobexecutor()
+		JobExecutor* JobFragmentExecution::getJobexecutor()
 		{
 			return _jobExecutor;
 		}

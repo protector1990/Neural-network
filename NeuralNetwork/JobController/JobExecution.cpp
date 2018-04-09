@@ -37,13 +37,13 @@ namespace MFNeuralNetwork {
 			return _status;
 		}
 
-		void JobExecution::setJob(std::weak_ptr<Job> job)
+		void JobExecution::setJob(Job* job)
 		{
 			_job = job;
 			_dirty = true;
 		}
 
-		std::weak_ptr<Job> JobExecution::getJob()
+		Job* JobExecution::getJob()
 		{
 			return _job;
 		}

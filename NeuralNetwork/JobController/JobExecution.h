@@ -12,9 +12,9 @@ namespace MFNeuralNetwork {
 		class JobExecution : public Entity {
 			friend class JobExecutionsRepository;
 			friend Entity * JobExecutionsRepository::populateFromPreparedStatement(sqlite3_stmt * s);
-			friend vector<shared_ptr<JobExecution>> JobExecutionsRepository::getJobExecutionsForJob(weak_ptr<Job> job);
+			friend vector<shared_ptr<JobExecution>> JobExecutionsRepository::getAllForJob(Job* job);
 		private:
-			std::weak_ptr<Job> _job;
+			Job* _job;
 			JobExecutionStatus _status;
 			PTIME::ptime _startTime = PTIME::ptime(boost::posix_time::neg_infin);
 			PTIME::ptime _endTime = PTIME::ptime(boost::posix_time::neg_infin);
@@ -28,8 +28,8 @@ namespace MFNeuralNetwork {
 			PTIME::ptime getEndTime();
 			void setJobExecutionStatus(JobExecutionStatus status);
 			JobExecutionStatus getJobExecutionStatus();
-			void setJob(std::weak_ptr<Job> job);
-			std::weak_ptr<Job> getJob();
+			void setJob(Job* job);
+			Job* getJob();
 		};
 	}
 }

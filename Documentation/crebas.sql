@@ -1,44 +1,8 @@
 /*==============================================================*/
 /* DBMS name:      PostgreSQL 9.x                               */
-/* Created on:     3/19/2018 12:15:09 AM                        */
+/* Created on:     3/19/2018 1:40:42 AM                         */
 /*==============================================================*/
 
-
-drop index ACCURACY_REACHED_FRAGMENT_PK;
-
-drop table ACCURACY_REACHED_FRAGMENT;
-
-drop index JOB_PK;
-
-drop table JOB;
-
-drop index JOB_HAS_JOB_EXECUTION_FK;
-
-drop index JOB_EXECUTION_PK;
-
-drop table JOB_EXECUTION;
-
-drop index JOB_HAS_JOB_FRAGMENTS_FK;
-
-drop index JOB_FRAGMENT_PK;
-
-drop table JOB_FRAGMENT;
-
-drop index JOB_FRAGMENT_EXECUTION_RUNS_ON_;
-
-drop index JOB_EXECUTION_HAS_JOB_FRAGMENT_;
-
-drop index JOB_FRAGMENT_EXECUTION_PK;
-
-drop table JOB_FRAGMENT_EXECUTION;
-
-drop index JOB_FRAGMENT_EXECUTOR_PK;
-
-drop table JOB_FRAGMENT_EXECUTOR;
-
-drop index NUM_OF_ITERATIONS_FRAGMENT_PK;
-
-drop table NUM_OF_ITERATIONS_FRAGMENT;
 
 drop domain DOM_EXECUTOR_STATUS;
 

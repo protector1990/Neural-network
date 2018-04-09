@@ -1,21 +1,28 @@
 #include "JobFragment.h"
+#include "JobFragmentExecutionRepository.h"
 
 using namespace MFNeuralNetwork::Data;
 using namespace std;
 
-void MFNeuralNetwork::Data::JobFragment::setJob(std::weak_ptr<Job> job) {
+void MFNeuralNetwork::Data::JobFragment::setJob(Job* job) {
 	_job = job;
 	_dirty = true;
 }
 
-std::weak_ptr<Job> MFNeuralNetwork::Data::JobFragment::getJob()
+Job* MFNeuralNetwork::Data::JobFragment::getJob()
 {
 	return _job;
 }
 
 void MFNeuralNetwork::Data::JobFragment::addJobFragmentExecution(std::shared_ptr<JobFragmentExecution> jobFragmentExecution) {
 	_jobFragmentExecutions.push_back(jobFragmentExecution);
-	jobFragmentExecution->setJobFragment(weak_ptr<JobFragment>(shared_ptr<JobFragment>(this)));
+	jobFragmentExecution->setJobFragment(this);
+}
+
+std::vector<std::shared_ptr<JobFragmentExecution>> MFNeuralNetwork::Data::JobFragment::getjobFragmentExecutions()
+{
+	_jobFragmentExecutions = JobFragmentExecutionRepository::getInstance()->getAllForJobFrag(this);
+	return _jobFragmentExecutions;
 }
 
 //float MFNeuralNetwork::Data::TargetAccuracyJobFragment::getTargetAccuracy()

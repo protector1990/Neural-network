@@ -16,16 +16,15 @@ namespace MFNeuralNetwork {
 		private:
 			JobFragment() {}
 			long long _id;
-			// This is a weak ptr because we don't want JobFragment to keep job alive
-			std::weak_ptr<Job> _job;
+			Job* _job;
 			std::vector<std::shared_ptr<JobFragmentExecution>> _jobFragmentExecutions;
 			std::shared_ptr<DataSet> _dataSet;
 			std::string _fragmentDescription;
 		public:
-			void setJob(std::weak_ptr<Job> job);
-			std::weak_ptr<Job> getJob();
+			void setJob(Job* job);
+			Job* getJob();
 			void addJobFragmentExecution(std::shared_ptr<JobFragmentExecution> jobFragmentExecution);
-			std::vector<std::shared_ptr<JobFragmentExecution>> getjobFragmentExecutions;
+			std::vector<std::shared_ptr<JobFragmentExecution>> getjobFragmentExecutions();
 		};
 
 		//class TargetAccuracyJobFragment : public JobFragment {
