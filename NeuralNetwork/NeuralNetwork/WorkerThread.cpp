@@ -7,7 +7,7 @@ using namespace std;
 namespace MFNeuralNetwork {
 	void WorkerThread::threadLoop()
 	{
-		while (true) {
+		while (_running) {
 			unique_lock<mutex> l(_m);
 			_dispatcher->threadFinished(this);
 			_cv.wait(l, [this]() {return !_free; });
@@ -29,5 +29,10 @@ namespace MFNeuralNetwork {
 	}
 	WorkerThread::WorkerThread(ThreadDispatcher * dispatcher) :
 		_dispatcher(dispatcher)
-	{}
+	{
+		_thisThread.detach();
+	}
+	WorkerThread::~WorkerThread() {
+		_running = false;
+	}
 }

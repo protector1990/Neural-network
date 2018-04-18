@@ -5,7 +5,7 @@ using namespace std;
 void MFNeuralNetwork::ThreadDispatcher::dispatcherLoop()
 {
 	new WorkerThread(this); //create one worker thread
-	while (true) {
+	while (_running) {
 		{
 			unique_lock<mutex> lock(_mutex);
 			if (!_waitingTasks.empty() && !_freeThreads.empty()) {
@@ -41,4 +41,11 @@ void MFNeuralNetwork::ThreadDispatcher::postTask(void(*task)())
 	//}
 }
 
+MFNeuralNetwork::ThreadDispatcher::ThreadDispatcher() {
+	dispatcherThread.detach();
+}
+
+MFNeuralNetwork::ThreadDispatcher::~ThreadDispatcher() {
+	_running = false;
+}
 
