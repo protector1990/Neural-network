@@ -21,14 +21,14 @@ namespace MFNeuralNetwork {
 			return ret;
 		}
 
-		vector<shared_ptr<JobExecution>> JobExecutionsRepository::getAllForJob(Job* job)
+		vector<JobExecution*> JobExecutionsRepository::getAllForJob(Job* job)
 		{
 			// should lock this?
 			sqlite3_bind_int64(_getAllJobExecsForJobStatement, 1, job->getId());
 			return PreparedStatementResultGetter<JobExecution>::getResultFromPreparedStatement(_getAllJobExecsForJobStatement, this);
 		}
 
-		vector<shared_ptr<JobExecution>> JobExecutionsRepository::getUnfinishedForJob(Job* job)
+		vector<JobExecution*> JobExecutionsRepository::getUnfinishedForJob(Job* job)
 		{
 			sqlite3_bind_int64(_getUnfinishedJobExecsForJobStatement, 1, job->getId());
 			return PreparedStatementResultGetter<JobExecution>::getResultFromPreparedStatement(_getUnfinishedJobExecsForJobStatement, this);

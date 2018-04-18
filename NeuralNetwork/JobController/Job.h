@@ -14,12 +14,14 @@ namespace MFNeuralNetwork {
 			class JobExecution;
 		private:
 			Job() {}
-			vector<std::shared_ptr<JobFragment>> _jobFragments;
-			vector<std::shared_ptr<JobExecution>> _jobExecutions;
+			std::vector<JobFragment*> _jobFragments;
+			std::vector<JobExecution*> _jobExecutions;
 		public:
 			//void setId(long long id);
-			void addJobFragment(std::shared_ptr<JobFragment> jobFragment);
-			void addJobExecution(std::shared_ptr<JobExecution> jobExecution);
+			void addJobFragment(JobFragment* jobFragment);
+			void addJobExecution(JobExecution* jobExecution);
+			std::vector<JobFragment*> getJobFragments();
+			std::vector<JobFragment*> getJobExecutions();
 			void releaseFinishedExecutions();
 			~Job();
 		};

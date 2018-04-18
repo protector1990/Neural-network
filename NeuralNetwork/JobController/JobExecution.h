@@ -12,7 +12,7 @@ namespace MFNeuralNetwork {
 		class JobExecution : public Entity {
 			friend class JobExecutionsRepository;
 			friend Entity * JobExecutionsRepository::populateFromPreparedStatement(sqlite3_stmt * s);
-			friend vector<shared_ptr<JobExecution>> JobExecutionsRepository::getAllForJob(Job* job);
+			friend vector<JobExecution*> JobExecutionsRepository::getAllForJob(Job* job);
 		private:
 			Job* _job;
 			JobExecutionStatus _status;

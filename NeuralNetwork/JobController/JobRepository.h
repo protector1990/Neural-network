@@ -15,9 +15,9 @@ namespace MFNeuralNetwork {
 			static JobRepository* _instance;
 			static int getMaxIdCallback(void* t, int num, char** values, char** names);
 		public:
-			std::vector<std::shared_ptr<Job>> loadAllJobs();
-			std::vector<std::shared_ptr<Job>> getUnfinishedJobs();
-			//std::shared_ptr<Entity> createNewEntity() override;
+			std::vector<Job*> loadAllJobs();
+			std::vector<Job*> getUnfinishedJobs();
+			//Entity* createNewEntity() override;
 			static JobRepository* getInstance();
 			void save(Entity* entity) override;
 			void update(Entity* entity) override;

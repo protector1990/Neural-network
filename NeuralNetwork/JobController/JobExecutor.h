@@ -19,11 +19,11 @@ namespace MFNeuralNetwork {
 			uint _aomuntOfHdd;
 			std::string _ipAddress;
 			JobExecutor() {}
-			std::shared_ptr<JobFragmentExecution> _currentJobFragmentExecution;
+			JobFragmentExecution* _currentJobFragmentExecution;
 			PTIME::ptime _wentOffline;
 		public:
-			void setCurrentJobFragmentExecution(std::shared_ptr<JobFragmentExecution> value);
-			std::shared_ptr<JobFragmentExecution> getJobFragmentExecution();
+			void setCurrentJobFragmentExecution(JobFragmentExecution* value);
+			JobFragmentExecution* getJobFragmentExecution();
 		};
 	}
 }

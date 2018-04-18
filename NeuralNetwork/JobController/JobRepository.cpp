@@ -46,19 +46,19 @@ int MFNeuralNetwork::Data::JobRepository::getMaxIdCallback(void* t, int num, cha
 	return 0;
 }
 
-std::vector<std::shared_ptr<Job>> MFNeuralNetwork::Data::JobRepository::loadAllJobs()
+std::vector<Job*> MFNeuralNetwork::Data::JobRepository::loadAllJobs()
 {
 	return PreparedStatementResultGetter<Job>::getResultFromPreparedStatement(_loadAllJobsStatement, this);
 }
 
-std::vector<std::shared_ptr<Job>> MFNeuralNetwork::Data::JobRepository::getUnfinishedJobs()
+std::vector<Job*> MFNeuralNetwork::Data::JobRepository::getUnfinishedJobs()
 {
 	return PreparedStatementResultGetter<Job>::getResultFromPreparedStatement(_loadUnfinishedJobsStatement, this);
 }
 
-//std::shared_ptr<Entity> MFNeuralNetwork::Data::JobRepository::createNewEntity()
+//Entity* MFNeuralNetwork::Data::JobRepository::createNewEntity()
 //{
-//	return std::shared_ptr<Entity>();
+//	return Entity*();
 //}
 
 JobRepository* JobRepository::_instance = nullptr;

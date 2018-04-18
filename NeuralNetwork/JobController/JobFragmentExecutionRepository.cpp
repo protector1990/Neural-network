@@ -57,12 +57,12 @@ namespace MFNeuralNetwork {
 			sqlite3_step(_deleteStatement);
 			sqlite3_reset(_deleteStatement);
 		}
-		std::vector<std::shared_ptr<JobFragmentExecution>> JobFragmentExecutionRepository::getAllForJobFrag(JobFragment* jobFragment)
+		std::vector<JobFragmentExecution*> JobFragmentExecutionRepository::getAllForJobFrag(JobFragment* jobFragment)
 		{
 			sqlite3_bind_int64(_getAllJobFragExecsForJobFragStatement, 0, jobFragment->getId());
 			return PreparedStatementResultGetter<JobFragmentExecution>::getResultFromPreparedStatement(_getAllJobFragExecsForJobFragStatement, this);
 		}
-		std::vector<std::shared_ptr<JobFragmentExecution>> JobFragmentExecutionRepository::getUnfinishedForJobFrag(JobFragment* jobFragment)
+		std::vector<JobFragmentExecution*> JobFragmentExecutionRepository::getUnfinishedForJobFrag(JobFragment* jobFragment)
 		{
 			sqlite3_bind_int64(_getAllJobFragExecsForJobFragExecStatement, 0, jobFragment->getId());
 			return PreparedStatementResultGetter<JobFragmentExecution>::getResultFromPreparedStatement(_getAllJobFragExecsForJobFragExecStatement, this);

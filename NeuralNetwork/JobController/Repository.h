@@ -45,12 +45,12 @@ namespace MFNeuralNetwork {
 			virtual void save(Entity* entity) = 0;
 			virtual void update(Entity* entity) = 0;
 			template <typename T>
-			std::shared_ptr<Entity> createNewEntity() {
+			Entity* createNewEntity() {
 				T* ret = new T();
 				ret->_dirty = true;
 				attachToContext(ret, true);
 				Entity* en = (Entity*)ret;
-				return shared_ptr<Entity>(en);
+				return Entity*(en);
 			}
 			Repository(sqlite3* db, size_t typeinfo);
 
@@ -58,7 +58,7 @@ namespace MFNeuralNetwork {
 			template <class T>
 			class PreparedStatementResultGetter {
 			public:
-				static std::vector<std::shared_ptr<T>> getResultFromPreparedStatement(sqlite3_stmt* stmt, Repository* repo) {
+				static std::vector<T*> getResultFromPreparedStatement(sqlite3_stmt* stmt, Repository* repo) {
 					bool run = true;
 					while (run) {
 						int status = sqlite3_step(stmt);
@@ -69,7 +69,7 @@ namespace MFNeuralNetwork {
 							for (auto entity : _entityCache) {
 								if (entity->equals(ent)) {
 									existsInCache = true;
-									ret.push_back(shared_ptr<T>((T*)entity));
+									ret.push_back(T*((T*)entity));
 									delete ent;
 									continue;
 								}

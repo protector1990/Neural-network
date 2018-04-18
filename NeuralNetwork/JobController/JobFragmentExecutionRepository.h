@@ -19,8 +19,8 @@ namespace MFNeuralNetwork {
 			void save(Entity* entity) override;
 			void update(Entity* entity) override;
 			void mDelete(Entity* entity) override;
-			std::vector <std::shared_ptr<JobFragmentExecution>> getAllForJobFrag(JobFragment* job);
-			std::vector <std::shared_ptr<JobFragmentExecution>> getUnfinishedForJobFrag(JobFragment* job);
+			std::vector <JobFragmentExecution*> getAllForJobFrag(JobFragment* job);
+			std::vector <JobFragmentExecution*> getUnfinishedForJobFrag(JobFragment* job);
 			JobFragmentExecutionRepository(sqlite3* db);
 			static JobFragmentExecutionRepository* getInstance();
 		};

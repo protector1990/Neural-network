@@ -28,7 +28,7 @@ void main() {
 		return;
 	}
 	JobRepository s(db);
-	shared_ptr<Job> job = static_pointer_cast<Job, Entity>(s.createNewEntity<Job>());
+	Job* job = static_pointer_cast<Job, Entity>(s.createNewEntity<Job>());
 	job->addJobFragment(0);
 
 	system("pause");

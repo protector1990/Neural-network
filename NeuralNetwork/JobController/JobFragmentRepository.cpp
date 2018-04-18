@@ -11,7 +11,7 @@ namespace MFNeuralNetwork {
 			JobFragment* ret = new JobFragment();
 			ret->_id = sqlite3_column_int64(s, 1);
 			ret->_job = (Job*)JobRepository::getInstance()->getById(sqlite3_column_int64(s, 2));
-			ret->_dataSet = shared_ptr<DataSet>((DataSet*)DataSetRepository::getInstance()->getById(sqlite3_column_int64(s, 3)));
+			ret->_dataSet = DataSet*((DataSet*)DataSetRepository::getInstance()->getById(sqlite3_column_int64(s, 3)));
 			ret->_fragmentDescription = string((char*)sqlite3_column_text(s, 4));
 			return ret;
 		}
@@ -54,7 +54,7 @@ namespace MFNeuralNetwork {
 			detachFromContext(entity);
 		}
 
-		std::vector<std::shared_ptr<JobFragment>> JobFragmentRepository::getJobFragmentsForJob(Job* job)
+		std::vector<JobFragment*> JobFragmentRepository::getJobFragmentsForJob(Job* job)
 		{
 			sqlite3_bind_int64(_getAllJobFragmentsForJobStatement, 1, job->getId());
 			return PreparedStatementResultGetter<JobFragment>::getResultFromPreparedStatement(_getAllJobFragmentsForJobStatement, this);

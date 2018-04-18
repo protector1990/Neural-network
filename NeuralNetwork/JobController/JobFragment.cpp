@@ -14,12 +14,12 @@ Job* MFNeuralNetwork::Data::JobFragment::getJob()
 	return _job;
 }
 
-void MFNeuralNetwork::Data::JobFragment::addJobFragmentExecution(std::shared_ptr<JobFragmentExecution> jobFragmentExecution) {
+void MFNeuralNetwork::Data::JobFragment::addJobFragmentExecution(JobFragmentExecution* jobFragmentExecution) {
 	_jobFragmentExecutions.push_back(jobFragmentExecution);
 	jobFragmentExecution->setJobFragment(this);
 }
 
-std::vector<std::shared_ptr<JobFragmentExecution>> MFNeuralNetwork::Data::JobFragment::getjobFragmentExecutions()
+std::vector<JobFragmentExecution*> MFNeuralNetwork::Data::JobFragment::getjobFragmentExecutions()
 {
 	_jobFragmentExecutions = JobFragmentExecutionRepository::getInstance()->getAllForJobFrag(this);
 	return _jobFragmentExecutions;

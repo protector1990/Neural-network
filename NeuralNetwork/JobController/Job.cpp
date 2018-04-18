@@ -1,5 +1,7 @@
 #include "Job.h"
 #include "JobExecution.h"
+#include "JobFragmentRepository.h"
+#include "JobExecutionRepository.h"
 
 using namespace MFNeuralNetwork::Data;
 
@@ -9,14 +11,25 @@ using namespace MFNeuralNetwork::Data;
 //	_dirty = true;
 //}
 
-void Job::addJobFragment(std::shared_ptr<JobFragment> jobFragment) {
+void Job::addJobFragment(JobFragment* jobFragment) {
 	_jobFragments.push_back(jobFragment);
 	jobFragment->setJob(this);
 }
 
-void Job::addJobExecution(std::shared_ptr<JobExecution> jobExecution) {
+void Job::addJobExecution(JobExecution* jobExecution) {
 	_jobExecutions.push_back(jobExecution);
 	jobExecution->setJob(this);
+}
+
+vector<JobFragment*> MFNeuralNetwork::Data::Job::getJobFragments()
+{
+	vector<JobFragment*> newJobFragments = JobFragmentRepository::getInstance()->getJobFragmentsForJob(this);
+	return _jobFragments;
+}
+
+std::vector<JobFragment*> MFNeuralNetwork::Data::Job::getJobExecutions()
+{
+	return std::vector<JobFragment*>();
 }
 
 void Job::releaseFinishedExecutions() {
@@ -32,10 +45,10 @@ void Job::releaseFinishedExecutions() {
 
 Job::~Job()
 {
-	for (auto fragment : _jobFragments) {
-		// persist job fragments
-	}
-	for (auto execution : _jobExecutions) {
-		// persist job executions
-	}
+	//for (auto fragment : _jobFragments) {
+	//	// persist job fragments
+	//}
+	//for (auto execution : _jobExecutions) {
+	//	// persist job executions
+	//}
 }

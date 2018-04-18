@@ -3,7 +3,6 @@
 #include "sqlite\sqlite3.h"
 #include "JobFragmentExecution.h"
 #include "DataSet.h"
-#include <memory>
 #include <vector>
 
 namespace MFNeuralNetwork {
@@ -17,14 +16,14 @@ namespace MFNeuralNetwork {
 			JobFragment() {}
 			long long _id;
 			Job* _job;
-			std::vector<std::shared_ptr<JobFragmentExecution>> _jobFragmentExecutions;
-			std::shared_ptr<DataSet> _dataSet;
+			std::vector<JobFragmentExecution*> _jobFragmentExecutions;
+			DataSet* _dataSet;
 			std::string _fragmentDescription;
 		public:
 			void setJob(Job* job);
 			Job* getJob();
-			void addJobFragmentExecution(std::shared_ptr<JobFragmentExecution> jobFragmentExecution);
-			std::vector<std::shared_ptr<JobFragmentExecution>> getjobFragmentExecutions();
+			void addJobFragmentExecution(JobFragmentExecution* jobFragmentExecution);
+			std::vector<JobFragmentExecution*> getjobFragmentExecutions();
 		};
 
 		//class TargetAccuracyJobFragment : public JobFragment {
