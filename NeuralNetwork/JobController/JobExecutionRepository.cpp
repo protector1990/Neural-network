@@ -1,6 +1,7 @@
+#include <string>
 #include "JobExecutionRepository.h"
 #include "JobExecution.h"
-#include <string>
+#include "Job.h"
 
 using namespace std;
 namespace MFNeuralNetwork {
@@ -35,32 +36,37 @@ namespace MFNeuralNetwork {
 		}
 
 		JobExecutionsRepository::JobExecutionsRepository(sqlite3* db)
-			: Repository(db, typeid(JobExecution).hash_code)
+			: Repository(db, typeid(JobExecution).hash_code())
 		{
 			char zsql[1024];
 
 			strcpy(zsql, "INSERT INTO job_execution VALUES (?, ?, ?, ?, ?);");
 			char* tail = zsql + 49;
-			sqlite3_prepare_v2(_db, zsql, 1024, &_saveStatement, &tail);
+			sqlite3_prepare_v2(_db, zsql, 1024, &_saveStatement, const_cast<const char **>(&tail));
 
 			strcpy(zsql, "UPDATE job_execution SET id_job = ?, status = ?, start_time = ?, end_time = ? WHERE job_execution.id = ?;");
 			tail = zsql + 101;
-			sqlite3_prepare_v2(_db, zsql, 1024, &_updateStatement, &tail);
+			sqlite3_prepare_v2(_db, zsql, 1024, &_updateStatement, const_cast<const char **>(&tail));
 
 			strcpy(zsql, "DELETE FROM job_execution WHERE job_execution.id = ?;");
 			tail = zsql + 53;
-			sqlite3_prepare_v2(_db, zsql, 1024, &_deleteStatement, &tail);
+			sqlite3_prepare_v2(_db, zsql, 1024, &_deleteStatement, const_cast<const char **>(&tail));
 
 			sprintf(zsql, "SELECT * FROM job_executions WHERE job_executions.id_job = ? AND job_executions.status = %d;", IN_PROGRESS);
 			char* tzsql = zsql + 93;
-			sqlite3_prepare_v2(db, zsql, 1024, &_getUnfinishedJobExecsForJobStatement, &tzsql);
+			sqlite3_prepare_v2(db, zsql, 1024, &_getUnfinishedJobExecsForJobStatement, const_cast<const char **>(&tzsql));
 			
 			sprintf(zsql, "SELECT * FROM job_executions WHERE job_executions.id_job = ?;");
 			tzsql = zsql + 62;
-			sqlite3_prepare_v2(db, zsql, 1024, &_getAllJobExecsForJobStatement, &tzsql);
+			sqlite3_prepare_v2(db, zsql, 1024, &_getAllJobExecsForJobStatement, const_cast<const char **>(&tzsql));
 			sprintf(zsql, "SELECT * FROM job_execution WHERE job_execution.id = ?;");
 			tail = zsql + 55;
-			sqlite3_prepare_v2(_db, zsql, 1024, &_getByIdStatement, &tail);
+			sqlite3_prepare_v2(_db, zsql, 1024, &_getByIdStatement, const_cast<const char **>(&tail));
+		}
+
+		JobExecutionsRepository * JobExecutionsRepository::getInstance()
+		{
+			return _instance;
 		}
 
 		int MFNeuralNetwork::Data::JobExecutionsRepository::getMaxIdCallback(void* t, int num, char** values, char** names)

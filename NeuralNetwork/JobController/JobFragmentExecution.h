@@ -1,14 +1,14 @@
 #pragma once
-#include "Entity.h"
 #include <posix_time\posix_time.hpp>
-#include "JobExecutor.h"
-#include "JobFragment.h"
 #include <memory>
+#include "Entity.h"
 
 #define PTIME boost::posix_time
 
 namespace MFNeuralNetwork {
 	namespace Data {
+		class JobExecutor;
+		class JobFragment;
 		class JobFragmentExecution : public Entity {
 			friend class JobFragmentExecutionRepository;
 		private:

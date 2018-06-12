@@ -114,5 +114,8 @@
     <ClInclude Include="JobFragmentExecutionRepository.h">
       <Filter>Data\Repository</Filter>
     </ClInclude>
+    <ClInclude Include="EntityPointer.h">
+      <Filter>Data</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

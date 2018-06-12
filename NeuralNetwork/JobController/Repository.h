@@ -3,8 +3,8 @@
 #include <memory>
 #include "sqlite\sqlite3.h"
 #include <typeinfo>
-#include "Entity.h"
 #include <unordered_set>
+#include "Entity.h"
 
 
 namespace MFNeuralNetwork {
@@ -60,26 +60,28 @@ namespace MFNeuralNetwork {
 			public:
 				static std::vector<T*> getResultFromPreparedStatement(sqlite3_stmt* stmt, Repository* repo) {
 					bool run = true;
+					std::vector<T*> ret;
 					while (run) {
 						int status = sqlite3_step(stmt);
 						switch (status) {
-						case SQLITE_ROW:
+						case SQLITE_ROW: {
 							bool existsInCache = false;
 							Entity * ent = repo->populateFromPreparedStatement(stmt);
-							for (auto entity : _entityCache) {
+							for (auto entity : repo->_entityCache) {
 								if (entity->equals(ent)) {
 									existsInCache = true;
-									ret.push_back(T*((T*)entity));
+									ret.push_back((T*)entity);
 									delete ent;
 									continue;
 								}
 							}
-							if (!_entityCache.emplace(ent).second) {
+							if (!repo->_entityCache.emplace(ent).second) {
 								throw RepoException("Inserting to entitityCache set failed");
 							}
 							if (!existsInCache) {
 								repo->attachToContext(ent);
 							}
+						}
 							break;
 						case SQLITE_DONE:
 							run = false;

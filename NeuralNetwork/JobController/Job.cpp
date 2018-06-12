@@ -1,9 +1,10 @@
 #include "Job.h"
-#include "JobExecution.h"
 #include "JobFragmentRepository.h"
 #include "JobExecutionRepository.h"
+#include "JobExecution.h"
 
 using namespace MFNeuralNetwork::Data;
+using namespace std;
 
 
 //void MFNeuralNetwork::Data::Job::setId(long long id) {

@@ -76,5 +76,3 @@ using namespace MFNeuralNetwork::Data;
 			entity->_id = _lastIndex++;
 			entity->_dirty = true;
 		}
-
-		

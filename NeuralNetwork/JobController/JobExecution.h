@@ -1,18 +1,17 @@
 #pragma once
-#include "JobExecutionRepository.h"
-#include "Job.h"
 #include <posix_time\posix_time.hpp>
+#include <vector>
+#include "Entity.h"
 
 #define PTIME boost::posix_time
 
 namespace MFNeuralNetwork {
 	namespace Data {
 		enum JobExecutionStatus { FINISHED = 1, IN_PROGRESS, FAILED, TODO, ABORTED };
-		//class JobExecutionRepository;
+		class JobExecutionRepository;
+		class Job;
 		class JobExecution : public Entity {
 			friend class JobExecutionsRepository;
-			friend Entity * JobExecutionsRepository::populateFromPreparedStatement(sqlite3_stmt * s);
-			friend vector<JobExecution*> JobExecutionsRepository::getAllForJob(Job* job);
 		private:
 			Job* _job;
 			JobExecutionStatus _status;

@@ -28,8 +28,8 @@ void main() {
 		return;
 	}
 	JobRepository s(db);
-	Job* job = static_pointer_cast<Job, Entity>(s.createNewEntity<Job>());
-	job->addJobFragment(0);
+	//Job* job = static_pointer_cast<Job, Entity>(s.createNewEntity<Job>());
+	//job->addJobFragment(0);
 
 	system("pause");
 }

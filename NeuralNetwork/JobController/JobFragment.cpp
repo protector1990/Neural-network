@@ -14,6 +14,17 @@ Job* MFNeuralNetwork::Data::JobFragment::getJob()
 	return _job;
 }
 
+DataSet * MFNeuralNetwork::Data::JobFragment::getDataSet()
+{
+	return _dataSet;
+}
+
+void MFNeuralNetwork::Data::JobFragment::setDataSet(DataSet * dataSet)
+{
+	_dataSet = dataSet;
+	_dirty = true;
+}
+
 void MFNeuralNetwork::Data::JobFragment::addJobFragmentExecution(JobFragmentExecution* jobFragmentExecution) {
 	_jobFragmentExecutions.push_back(jobFragmentExecution);
 	jobFragmentExecution->setJobFragment(this);

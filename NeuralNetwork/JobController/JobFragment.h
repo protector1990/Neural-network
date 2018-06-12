@@ -22,6 +22,8 @@ namespace MFNeuralNetwork {
 		public:
 			void setJob(Job* job);
 			Job* getJob();
+			DataSet* getDataSet();
+			void setDataSet(DataSet* dataSet);
 			void addJobFragmentExecution(JobFragmentExecution* jobFragmentExecution);
 			std::vector<JobFragmentExecution*> getjobFragmentExecutions();
 		};

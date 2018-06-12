@@ -14,6 +14,11 @@ Entity * MFNeuralNetwork::Data::JobRepository::populateFromPreparedStatement(sql
 	return ret;
 }
 
+JobRepository * MFNeuralNetwork::Data::JobRepository::getInstance()
+{
+	return _instance;
+}
+
 void MFNeuralNetwork::Data::JobRepository::save(Entity * entity)
 {
 	Job* job = (Job*)entity;
@@ -69,21 +74,21 @@ JobRepository::JobRepository(sqlite3 * db) :
 	char zsql[1024];
 	strcpy(zsql, "INSERT INTO job VALUES (id = ?);");
 	char* tail = zsql + 33;
-	sqlite3_prepare_v2(_db, zsql, 1024, &_saveStatement, &tail);
+	sqlite3_prepare_v2(_db, zsql, 1024, &_saveStatement, const_cast<const char **>(&tail));
 	strcpy(zsql, "UPDATE job SET id = ? WHERE job.id = ?;");
 	tail = zsql + 39;
-	sqlite3_prepare_v2(_db, zsql, 1024, &_updateStatement, &tail);
+	sqlite3_prepare_v2(_db, zsql, 1024, &_updateStatement, const_cast<const char **>(&tail));
 	strcpy(zsql, "DELETE FROM job WHERE job.id = ?;");
 	tail = zsql + 34;
-	sqlite3_prepare_v2(_db, zsql, 1024, &_deleteStatement, &tail);
+	sqlite3_prepare_v2(_db, zsql, 1024, &_deleteStatement, const_cast<const char **>(&tail));
 	sprintf(zsql, "SELECT * FROM job WHERE job.id IN (SELECT id FROM job_executions WHERE job_executions.status = %d);", IN_PROGRESS);
 	tail = zsql + 99;
-	sqlite3_prepare_v2(_db, zsql, 1024, &_loadUnfinishedJobsStatement, &tail);
+	sqlite3_prepare_v2(_db, zsql, 1024, &_loadUnfinishedJobsStatement, const_cast<const char **>(&tail));
 	sprintf(zsql, "SELECT * FROM job;");
 	tail = zsql + 18;
-	sqlite3_prepare_v2(_db, zsql, 1024, &_loadAllJobsStatement, &tail);
+	sqlite3_prepare_v2(_db, zsql, 1024, &_loadAllJobsStatement, const_cast<const char **>(&tail));
 	sprintf(zsql, "SELECT * FROM job WHERE job.id = ?;");
 	tail = zsql + 35;
-	sqlite3_prepare_v2(_db, zsql, 1024, &_getByIdStatement, &tail);
+	sqlite3_prepare_v2(_db, zsql, 1024, &_getByIdStatement, const_cast<const char **>(&tail));
 	sqlite3_exec(db, "SELECT MAX(id) FROM job;", JobRepository::getMaxIdCallback, this, 0);
 }

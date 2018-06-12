@@ -1,14 +1,14 @@
 #pragma once
 #include "sqlite\sqlite3.h"
-#include "Repository.h"
 
 namespace MFNeuralNetwork {
 	namespace Data {
+		class Repository;
+		
 		class Entity {
-			//class Repository;
 			friend class Repository;
-			Repository* _repo;
 		protected:
+			Repository* _repo;
 			bool _attachedToContext : 1;
 			// all setters for fields in child entities must set this flag to tture
 			bool _dirty : 1;

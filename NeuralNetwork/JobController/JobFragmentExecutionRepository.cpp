@@ -1,5 +1,8 @@
-#include "JobFragmentExecutionRepository.h"
 #include <posix_time\posix_time.hpp>
+#include "JobFragmentExecutionRepository.h"
+#include "JobFragmentExecution.h"
+#include "JobExecutor.h"
+#include "JobFragment.h"
 
 using namespace std;
 using namespace boost::posix_time;
@@ -73,22 +76,26 @@ namespace MFNeuralNetwork {
 			char zsql[1024];
 			strcpy(zsql, "INSERT INTO job_fragment_execution VALUES (?, ?, ?, ?, ?);");
 			char* tail = zsql + 58;
-			sqlite3_prepare_v2(_db, zsql, 1024, &_saveStatement, &tail);
+			sqlite3_prepare_v2(_db, zsql, 1024, &_saveStatement, const_cast<const char **>(&tail));
 			strcpy(zsql, "UPDATE job_fragment_execution SET id = ?,  WHERE job_fragment_execution.id = ?;");
 			tail = zsql + 79;
-			sqlite3_prepare_v2(_db, zsql, 1024, &_updateStatement, &tail);
+			sqlite3_prepare_v2(_db, zsql, 1024, &_updateStatement, const_cast<const char **>(&tail));
 			strcpy(zsql, "DELETE FROM job_fragment_execution WHERE job_fragment_execution.id = ?;");
 			tail = zsql + 71;
-			sqlite3_prepare_v2(_db, zsql, 1024, &_deleteStatement, &tail);
+			sqlite3_prepare_v2(_db, zsql, 1024, &_deleteStatement, const_cast<const char **>(&tail));
 			strcpy(zsql, "SELECT * FROM job_fragment_execution WHERE job_fragment_execution.job_fragment_id = ?;");
 			tail = zsql + 86;
-			sqlite3_prepare_v2(_db, zsql, 1024, &_getAllJobFragExecsForJobFragStatement, &tail);
+			sqlite3_prepare_v2(_db, zsql, 1024, &_getAllJobFragExecsForJobFragStatement, const_cast<const char **>(&tail));
 			strcpy(zsql, "SELECT * FROM job_fragment_execution WHERE job_fragment_execution.job_executor_id = ?;");
 			tail = zsql + 86;
-			sqlite3_prepare_v2(_db, zsql, 1024, &_getAllJobFragExecsForJobFragExecStatement, &tail);
+			sqlite3_prepare_v2(_db, zsql, 1024, &_getAllJobFragExecsForJobFragExecStatement, const_cast<const char **>(&tail));
 			sprintf(zsql, "SELECT * FROM job_fragment_execution WHERE job_fragment_execution.id = ?;");
 			tail = zsql + 73;
-			sqlite3_prepare_v2(_db, zsql, 1024, &_getByIdStatement, &tail);
+			sqlite3_prepare_v2(_db, zsql, 1024, &_getByIdStatement, const_cast<const char **>(&tail));
+		}
+		JobFragmentExecutionRepository * JobFragmentExecutionRepository::getInstance()
+		{
+			return _instance;
 		}
 	}
 }

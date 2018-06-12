@@ -1,6 +1,6 @@
 #pragma once
-#include "Entity.h"
 #include <string>
+#include "Entity.h"
 
 namespace MFNeuralNetwork {
 	namespace Data {
