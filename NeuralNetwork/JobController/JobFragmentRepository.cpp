@@ -5,14 +5,17 @@
 
 namespace MFNeuralNetwork {
 	namespace Data {
+
 		using namespace std;
 
 		Entity * JobFragmentRepository::populateFromPreparedStatement(sqlite3_stmt * s)
 		{
+			JobRepository* jobRepository = getInstance<JobRepository>(_db);
+			DataSetRepository* dataSetRepository = getInstance<DataSetRepository>(_db);
 			JobFragment* ret = new JobFragment();
 			ret->_id = sqlite3_column_int64(s, 1);
-			ret->_job = (Job*)JobRepository::getInstance()->getById(sqlite3_column_int64(s, 2));
-			ret->_dataSet = (DataSet*)DataSetRepository::getInstance()->getById(sqlite3_column_int64(s, 3));
+			ret->_job = (Job*) jobRepository->getById(sqlite3_column_int64(s, 2));
+			ret->_dataSet = (DataSet*)dataSetRepository->getById(sqlite3_column_int64(s, 3));
 			ret->_fragmentDescription = string((char*)sqlite3_column_text(s, 4));
 			return ret;
 		}
@@ -82,9 +85,9 @@ namespace MFNeuralNetwork {
 			sqlite3_prepare_v2(_db, zsql, 1024, &_getByIdStatement, const_cast<const char **>(&tail));
 		}
 
-		JobFragmentRepository * JobFragmentRepository::getInstance()
+		Repository * JobFragmentRepository::createNewInstance(sqlite3 * db)
 		{
-			return _instance;
+			return new JobFragmentRepository(db);
 		}
 
 	}

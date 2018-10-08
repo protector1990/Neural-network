@@ -3,6 +3,8 @@
 #include <iostream>
 #include "JobRepository.h"
 #include "Job.h"
+#include "JobExecutionRepository.h"
+#include "JobExecution.h"
 
 using namespace std;
 using namespace MFNeuralNetwork::Data;
@@ -22,14 +24,23 @@ void main() {
 	if (rc) {
 		return;
 	}
-	char* err = new char[1024];
-	rc = sqlite3_exec(db, "SELECT * from rws;", callback, 0, &err);
-	if (rc) {
-		return;
-	}
-	JobRepository s(db);
-	//Job* job = static_pointer_cast<Job, Entity>(s.createNewEntity<Job>());
-	//job->addJobFragment(0);
+	JobRepository* jobRepository = JobRepository::getInstance();
+	JobExecutionsRepository* jobExecutionRepository = JobExecutionsRepository::getInstance();
+	
+	//Job* job = jobRepository.createNewEntity<Job>();
+	//JobExecution* jobExecution = jobExecutionsRepository.createNewEntity<JobExecution>();
+	//jobExecution->setStartTime(boost::posix_time::time_from_string("2018-02-02 00:00:00.000"));
+	//jobExecution->setEndTime(boost::posix_time::time_from_string("2018-02-03 00:00:00.000"));
+	//
+	//jobExecution->setJobExecutionStatus(JobExecutionStatus::FINISHED);
+	//
+	//job->addJobExecution(jobExecution);
+	//
+	//jobRepository.save(job);
+
+	auto jobs = jobRepository->loadAllJobs();
+
+	int x = 0;
 
 	system("pause");
 }

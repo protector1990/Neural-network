@@ -4,6 +4,7 @@
 #include "sqlite\sqlite3.h"
 #include <typeinfo>
 #include <unordered_set>
+#include <unordered_map>
 #include "Entity.h"
 
 
@@ -18,6 +19,10 @@ namespace MFNeuralNetwork {
 			//{
 			//	return lhs->equals(rhs);
 			//}
+		};
+		struct RepositoryKey {
+			size_t repositoryTypeHash;
+			size_t repositoryPointer;
 		};
 		using namespace std;
 		class RepoException : public std::exception {
@@ -35,8 +40,22 @@ namespace MFNeuralNetwork {
 			long long _lastIndex;
 			// Should be prepared by subclasses
 			sqlite3_stmt* _getByIdStatement;
+			static int getMaxIdCallback(void* t, int num, char** values, char** names);
+			Repository(sqlite3* db, size_t typeinfo);
+			static unordered_map<RepositoryKey, Repository*> _repositories;
+			//static Repository* createNewInstance(sqlite3* db);
 		public:
-			
+			template<typename T>
+			T* getInstance(sqlite3* db) {
+				RepositoryKey key = { typeid(T).hash_code(), reinterpret_cast<size_t>(db) };
+				auto iter = _repositories.find(key);
+				if (iter == _repositories.end()) {
+					Repository* newRepo = T::createNewInstance(db);
+					_repositories.insert(key, newRepo);
+					return newRepo;
+				}
+				return *iter;
+			}
 			void detachFromContext(Entity* entity);
 			void attachToContext(Entity* entity, bool autoReidentify = false);
 			void persist(Entity* entity);
@@ -45,14 +64,14 @@ namespace MFNeuralNetwork {
 			virtual void save(Entity* entity) = 0;
 			virtual void update(Entity* entity) = 0;
 			template <typename T>
-			Entity* createNewEntity() {
+			T* createNewEntity() {
 				T* ret = new T();
+				setNewIdentity(ret);
 				ret->_dirty = true;
 				attachToContext(ret, true);
 				Entity* en = (Entity*)ret;
-				return Entity*(en);
+				return ret;
 			}
-			Repository(sqlite3* db, size_t typeinfo);
 
 			//using T = Entity;
 			template <class T>
@@ -75,11 +94,9 @@ namespace MFNeuralNetwork {
 									continue;
 								}
 							}
-							if (!repo->_entityCache.emplace(ent).second) {
-								throw RepoException("Inserting to entitityCache set failed");
-							}
 							if (!existsInCache) {
 								repo->attachToContext(ent);
+								ret.push_back((T*)ent);
 							}
 						}
 							break;

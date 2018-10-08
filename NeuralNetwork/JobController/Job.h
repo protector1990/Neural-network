@@ -7,8 +7,10 @@ namespace MFNeuralNetwork {
 		class JobFragment;
 		class JobExecution;
 		class JobRepository;
+		class Repository;
 		class Job : public Entity {
 			friend class JobRepository;
+			friend class Repository;
 			//friend Entity * MFNeuralNetwork::Data::JobRepository::populateFromPreparedStatement(sqlite3_stmt * s);
 			//class JobFragment;
 		private:

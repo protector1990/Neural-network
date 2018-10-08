@@ -18,6 +18,8 @@ namespace MFNeuralNetwork {
 		void executeTask(void(*toRun)());
 	public:
 		WorkerThread(ThreadDispatcher* dispatcher);
+		WorkerThread(const WorkerThread& other) = delete;
+		void operator=(const WorkerThread& other) = delete;
 		~WorkerThread();
 	};
 }

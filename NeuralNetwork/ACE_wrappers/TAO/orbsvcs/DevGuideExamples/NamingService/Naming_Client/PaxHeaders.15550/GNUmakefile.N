@@ -1,0 +1,4 @@
+112 path=ACE_wrappers/TAO/orbsvcs/DevGuideExamples/NamingService/Naming_Client/GNUmakefile.Naming_Client_Client
+30 mtime=1528785171.899858475
+30 atime=1528786554.208440359
+30 ctime=1528786531.904386515

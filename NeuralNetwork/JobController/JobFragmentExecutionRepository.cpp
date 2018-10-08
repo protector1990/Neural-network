@@ -9,6 +9,9 @@ using namespace boost::posix_time;
 
 namespace MFNeuralNetwork {
 	namespace Data {
+
+		JobFragmentExecutionRepository* JobFragmentExecutionRepository::_instance;
+
 		Entity * JobFragmentExecutionRepository::populateFromPreparedStatement(sqlite3_stmt * s)
 		{
 			JobFragmentExecution* ret = new JobFragmentExecution();
@@ -93,9 +96,10 @@ namespace MFNeuralNetwork {
 			tail = zsql + 73;
 			sqlite3_prepare_v2(_db, zsql, 1024, &_getByIdStatement, const_cast<const char **>(&tail));
 		}
-		JobFragmentExecutionRepository * JobFragmentExecutionRepository::getInstance()
+		
+		Repository * JobFragmentExecutionRepository::createNewInstance(sqlite3 * db)
 		{
-			return _instance;
+			return new JobFragmentExecutionRepository(db);
 		}
 	}
 }

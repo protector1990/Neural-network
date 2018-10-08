@@ -1,0 +1,4 @@
+123 path=ACE_wrappers/TAO/DevGuideExamples/Multithreading/ThreadPerConnection/GNUmakefile.Multi_ThreadPerConnection_Client
+30 mtime=1528785104.515644121
+30 atime=1528786553.256438061
+30 ctime=1528786531.892386486

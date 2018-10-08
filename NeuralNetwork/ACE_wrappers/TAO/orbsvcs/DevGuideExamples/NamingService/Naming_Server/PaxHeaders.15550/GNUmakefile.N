@@ -1,0 +1,4 @@
+115 path=ACE_wrappers/TAO/orbsvcs/DevGuideExamples/NamingService/Naming_Server/GNUmakefile.Naming_Server_Messenger
+30 mtime=1528785171.719857902
+30 atime=1528786554.216440378
+30 ctime=1528786531.904386515

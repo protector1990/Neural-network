@@ -71,8 +71,20 @@ using namespace MFNeuralNetwork::Data;
 		{
 		}
 
+		int MFNeuralNetwork::Data::Repository::getMaxIdCallback(void* t, int num, char** values, char** names)
+		{
+			Repository* instance = (Repository*)t;
+			if (*values != nullptr) {
+				instance->_lastIndex = stoll({ values[0] });
+			}
+			else {
+				instance->_lastIndex = 0;
+			}
+			return 0;
+		}
+
 		void Repository::setNewIdentity(Entity * entity)
 		{
-			entity->_id = _lastIndex++;
+			entity->_id = ++_lastIndex;
 			entity->_dirty = true;
 		}

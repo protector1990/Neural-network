@@ -13,14 +13,13 @@ namespace MFNeuralNetwork {
 			sqlite3_stmt * _deleteStatement;
 			Entity* populateFromPreparedStatement(sqlite3_stmt* s) override;
 			static int getMaxIdCallback(void* t, int num, char** values, char** names);
-			static JobFragmentRepository* _instance;
+			JobFragmentRepository(sqlite3* db);
+			static Repository* createNewInstance(sqlite3* db);
 		public:
 			void save(Entity* entity) override;
 			void update(Entity* entity) override;
 			void mDelete(Entity* entity) override;
 			std::vector <JobFragment*> getJobFragmentsForJob(Job* job);
-			JobFragmentRepository(sqlite3* db);
-			static JobFragmentRepository* getInstance();
 		};
 	}
 }

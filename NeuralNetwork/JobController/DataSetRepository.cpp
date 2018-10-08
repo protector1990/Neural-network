@@ -2,6 +2,7 @@
 
 namespace MFNeuralNetwork {
 	namespace Data {
+
 		using namespace std;
 		int DataSetRepository::getMaxIdCallback(void * t, int num, char ** values, char ** names)
 		{
@@ -51,6 +52,10 @@ namespace MFNeuralNetwork {
 			
 			sqlite3_exec(db, "SELECT MAX(id) FROM data_set;", DataSetRepository::getMaxIdCallback, this, 0);
 		}
+		Repository * DataSetRepository::createNewInstance(sqlite3 * db)
+		{
+			return new DataSetRepository(db);
+		}
 		void DataSetRepository::mDelete(Entity * entity)
 		{
 			DataSet* dataSet = (DataSet*)entity;
@@ -77,10 +82,6 @@ namespace MFNeuralNetwork {
 			sqlite3_bind_int64(_updateStatement, 3, dataSet->_id);
 			sqlite3_step(_updateStatement);
 			sqlite3_reset(_updateStatement);
-		}
-		DataSetRepository * DataSetRepository::getInstance()
-		{
-			return _instance;
 		}
 	}
 }

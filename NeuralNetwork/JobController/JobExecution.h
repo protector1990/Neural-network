@@ -1,4 +1,5 @@
-#pragma once
+#ifndef JOB_EXECUTION_
+#define JOB_EXECUTION_
 #include <posix_time\posix_time.hpp>
 #include <vector>
 #include "Entity.h"
@@ -8,10 +9,12 @@
 namespace MFNeuralNetwork {
 	namespace Data {
 		enum JobExecutionStatus { FINISHED = 1, IN_PROGRESS, FAILED, TODO, ABORTED };
-		class JobExecutionRepository;
+		class JobExecutionsRepository;
+		class Repository;
 		class Job;
 		class JobExecution : public Entity {
 			friend class JobExecutionsRepository;
+			friend class Repository;
 		private:
 			Job* _job;
 			JobExecutionStatus _status;
@@ -32,3 +35,5 @@ namespace MFNeuralNetwork {
 		};
 	}
 }
+
+#endif
